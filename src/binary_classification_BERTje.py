@@ -8,6 +8,8 @@ transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
 # Preparing train data
+# Correct Dutch sentences have a '0' label
+# Sentences with a "dt" mistake for worden (word vs. wordt) have a '1' label
 train_data = [
     ["Ik word is zonder t", 0],
     ["Ik word warm.", 0],
@@ -282,7 +284,7 @@ train_df.columns = ["text", "labels"]
 #  [-3.5643284   3.3636334 ]
 #  [-3.5316904   3.2791054 ]]
 
-# This is the single
+# This is the single wrong prediction in the evaluation set
 # Wordt zij volgend jaar ook uitgenodigd?
 # 0
 
