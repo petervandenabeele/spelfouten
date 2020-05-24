@@ -230,27 +230,62 @@ train_df.columns = ["text", "labels"]
 
 # Preparing eval data
 
-## RESULTS on this very simple version: 14 of the 16 validations are very strongly correct :-)
-# [[ 0.934536   -0.79441744]
-#  [-0.38130385  0.34947482]
-#  [ 0.56628114 -0.31090865]
-#  [ 0.24857064 -0.13078722]  # incorrect
-#  [ 1.1392815  -0.768657  ]
-#  [-1.1988978   1.0266285 ]
-#  [ 0.38991755 -0.34029955]
-#  [ 0.34916613 -0.29456055]  # incorrect
-#  [ 1.3438416  -0.99393845]
-#  [-1.3128942   1.3501518 ]
-#  [ 1.1691108  -0.7768973 ]
-#  [-0.2947425   0.29919532]
-#  [ 1.4490408  -1.1109018 ]
-#  [-1.4008088   1.3720468 ]
-#  [ 1.3757272  -1.0468719 ]
-#  [-0.54108465  0.3590323 ]]
-# Wordt ik nu al opgeroepen?
-# 1
-# Wordt jij nu al opgeroepen?
-# 1
+## RESULTS on this version with approx. 200 training examples (64 synthetic, 140 from nl.wikipedia)
+## and approx. 46 validation examples (16 synthetic, 30 (independent) ones from nl.wikipedia)
+
+## Validation accuracy of 45/46 => 97.8% accuracy (?)
+# {'mcc': 0.957427107756338, 'tp': 23, 'tn': 22, 'fp': 1, 'fn': 0, 'eval_loss': 0.02614415737237626}
+# [[ 4.2059097  -3.7627044 ]
+#  [-3.5665493   3.1585    ]
+#  [ 4.212945   -3.6560168 ]
+#  [-3.6388679   3.3253736 ]
+#  [ 2.7759726  -2.4389825 ]
+#  [-3.2775264   2.94584   ]
+#  [ 4.0644474  -3.6081064 ]
+#  [-3.0999212   2.9003782 ]
+#  [ 3.7575562  -3.2989907 ]
+#  [-3.3962812   2.9213512 ]
+#  [ 1.8863125  -1.5268269 ]
+#  [-3.2213383   2.9490423 ]
+#  [ 3.5826302  -3.0704281 ]
+#  [-3.3908744   2.975732  ]
+#  [-0.34237236  0.43810555]  *INCORRECT* => "Wordt zij volgend jaar ook uitgenodigd?""
+#  [-3.3102717   3.0289602 ]
+#  [ 4.2628994  -3.6565843 ]
+#  [ 4.3029656  -3.6985798 ]
+#  [ 3.8944387  -3.5548325 ]
+#  [ 4.2086067  -3.709293  ]
+#  [ 4.234384   -3.6440425 ]
+#  [ 4.1677513  -3.7484157 ]
+#  [ 4.0783415  -3.624547  ]
+#  [ 4.1836805  -3.5575871 ]
+#  [ 4.198094   -3.6942775 ]
+#  [ 4.0628657  -3.6311564 ]
+#  [ 4.2124763  -3.5904891 ]
+#  [ 4.214889   -3.641985  ]
+#  [ 4.250997   -3.698926  ]
+#  [ 4.2112365  -3.7224946 ]
+#  [ 4.231102   -3.6591349 ]
+#  [-3.111953    2.6416206 ]
+#  [-2.9442997   2.6951098 ]
+#  [-3.093072    2.7891457 ]
+#  [-3.3627703   3.0261097 ]
+#  [-3.6477983   3.2423062 ]
+#  [-3.5561976   3.1162627 ]
+#  [-3.4674215   3.2619922 ]
+#  [-2.602563    2.5227032 ]
+#  [-3.4936633   3.1744359 ]
+#  [-3.0891414   2.7304373 ]
+#  [-3.4588      3.1527596 ]
+#  [-3.1135874   2.6390429 ]
+#  [-3.6027222   3.1697285 ]
+#  [-3.5643284   3.3636334 ]
+#  [-3.5316904   3.2791054 ]]
+
+# This is the single
+# Wordt zij volgend jaar ook uitgenodigd?
+# 0
+
 
 eval_data = [
     ["Ik word volgend jaar ook getest.", 0],          #  [ 0.934536   -0.79441744]
@@ -327,8 +362,11 @@ model.train_model(train_df)
 
 # Evaluate the model
 result, model_outputs, wrong_predictions = model.eval_model(eval_df)
-# INFO {'mcc': 0.7745966692414834, 'tp': 6, 'tn': 8, 'fp': 0, 'fn': 2, 'eval_loss': 0.29993630945682526}
+
 print(model_outputs) # see above
+# =>  {'mcc': 0.957427107756338, 'tp': 23, 'tn': 22, 'fp': 1, 'fn': 0, 'eval_loss': 0.02614415737237626}
+
+# See above, the single wrong prediction for "Wordt zij volgend jaar ook uitgenodigd?"
 for wrong_prediction in wrong_predictions:
     print(wrong_prediction.text_a)
     print(wrong_prediction.label)
@@ -338,22 +376,22 @@ predictions, raw_outputs = model.predict(["Ik wordt nieuwsgierig."])
 print(predictions)
 print(raw_outputs)
 # [1]
-# [[-0.5602998  0.8519003]]  => strongly correct
+# [[-3.4197278  3.2459447]] => strongly correct
 
 predictions, raw_outputs = model.predict(["Wordt jij ook enthousiast?"])
 print(predictions)
 print(raw_outputs)
-# [0]
-# [[ 1.0839487  -0.87757194]] => strongly *INCORRECT*
+# [1]
+# [[-2.9257555  2.6328616]] => strongly correct
 
 predictions, raw_outputs = model.predict(["Wordt zij hierdoor bekend?"])
 print(predictions)
 print(raw_outputs)
-# [0]
-# [[ 1.0873619 -0.8918497]]  => strongly correct
+# [1]
+# [[-0.18000953  0.8206537 ]] => *WEAKLY INCORRECT* ; the "wordt zij ..." is clearly failing for this model
 
 predictions, raw_outputs = model.predict(["Ik word enthousiast."])
 print(predictions)
 print(raw_outputs)
 # [0]
-# [[ 1.5705453 -1.4946615]] => strongly correct
+# [[ 4.1996617 -3.7211807]] => strongly correct
