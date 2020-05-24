@@ -8,8 +8,11 @@ Ref.
 
 ## Basic experiments
 
-Try the binary classification from simpletransformers.
+Try the binary classification with `BertForSequenceClassification`  from simpletransformers.
 
 First with the exact English language example.
 
-Next with a Dutch language version.
+Next with a Dutch language version, using the `bert-base-dutch-cased` Huggingface pretrained model
+from [BERTje](https://github.com/wietsedv/bertje).
+
+=> Initial results as comments in [binary_classification_BERTje.py](./src/binary_classification_BERTje.py)

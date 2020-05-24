@@ -85,70 +85,99 @@ train_df = pd.DataFrame(train_data)
 train_df.columns = ["text", "labels"]
 
 # Preparing eval data
+
+## RESULTS on this very simple version: 14 of the 16 validations are very strongly correct :-)
+# [[ 0.934536   -0.79441744]
+#  [-0.38130385  0.34947482]
+#  [ 0.56628114 -0.31090865]
+#  [ 0.24857064 -0.13078722]  # incorrect
+#  [ 1.1392815  -0.768657  ]
+#  [-1.1988978   1.0266285 ]
+#  [ 0.38991755 -0.34029955]
+#  [ 0.34916613 -0.29456055]  # incorrect
+#  [ 1.3438416  -0.99393845]
+#  [-1.3128942   1.3501518 ]
+#  [ 1.1691108  -0.7768973 ]
+#  [-0.2947425   0.29919532]
+#  [ 1.4490408  -1.1109018 ]
+#  [-1.4008088   1.3720468 ]
+#  [ 1.3757272  -1.0468719 ]
+#  [-0.54108465  0.3590323 ]]
+# Wordt ik nu al opgeroepen?
+# 1
+# Wordt jij nu al opgeroepen?
+# 1
+
 eval_data = [
-    ["Ik word volgend jaar ook getest.", 0],
-    ["Ik wordt helemaal naar hier gehaald.", 1],
-    ["Word ik volgend jaar ook uitgenodigd?", 0],
-    ["Wordt ik nu al opgeroepen?", 1],
+    ["Ik word volgend jaar ook getest.", 0],          #  [ 0.934536   -0.79441744]
+    ["Ik wordt helemaal naar hier gehaald.", 1],      #  [-0.38130385  0.34947482]
+    ["Word ik volgend jaar ook uitgenodigd?", 0],     #  [ 0.56628114 -0.31090865]
+    ["Wordt ik nu al opgeroepen?", 1], # *INCORRECT*  #  [ 0.24857064 -0.13078722]
 
-    ["Jij wordt volgend jaar ook getest.", 0],
-    ["Jij word helemaal naar hier gehaald.", 1],
-    ["Word jij volgend jaar ook uitgenodigd?", 0],
-    ["Wordt jij nu al opgeroepen?", 1],
+    ["Jij wordt volgend jaar ook getest.", 0],        #  [ 1.1392815  -0.768657  ]
+    ["Jij word helemaal naar hier gehaald.", 1],      #  [-1.1988978   1.0266285 ]
+    ["Word jij volgend jaar ook uitgenodigd?", 0],    #  [ 0.38991755 -0.34029955]
+    ["Wordt jij nu al opgeroepen?", 1], # *INCORRECT* #  [ 0.34916613 -0.29456055]
 
-    ["Hij wordt volgend jaar ook getest.", 0],
-    ["Hij word helemaal naar hier gehaald.", 1],
-    ["Wordt hij volgend jaar ook uitgenodigd?", 0],
-    ["Word hij nu al opgeroepen?", 1],
+    ["Hij wordt volgend jaar ook getest.", 0],        #  [ 1.3438416  -0.99393845]
+    ["Hij word helemaal naar hier gehaald.", 1],      #  [-1.3128942   1.3501518 ]
+    ["Wordt hij volgend jaar ook uitgenodigd?", 0],   #  [ 1.1691108  -0.7768973 ]
+    ["Word hij nu al opgeroepen?", 1],                #  [-0.2947425   0.29919532]
 
-    ["Zij wordt volgend jaar ook getest.", 0],
-    ["Zij word helemaal naar hier gehaald.", 1],
-    ["Wordt zij volgend jaar ook uitgenodigd?", 0],
-    ["Word zij nu al opgeroepen?", 1],
+    ["Zij wordt volgend jaar ook getest.", 0],        #  [ 1.4490408  -1.1109018 ]
+    ["Zij word helemaal naar hier gehaald.", 1],      #  [-1.4008088   1.3720468 ]
+    ["Wordt zij volgend jaar ook uitgenodigd?", 0],   #  [ 1.3757272  -1.0468719 ]
+    ["Word zij nu al opgeroepen?", 1],                #  [-0.54108465  0.3590323 ]
 ]
 eval_df = pd.DataFrame(eval_data)
 eval_df.columns = ["text", "labels"]
 
 # Optional model configuration
+# with 10 epochs, took a few minutes to train on laptop CPU
 model_args = {
     "num_train_epochs": 10,
     "overwrite_output_dir": 1,
 }
 
-print('before model creation')
-
 # Create a ClassificationModel
 model = ClassificationModel(
     "bert", "bert-base-dutch-cased", args=model_args, use_cuda=False,
 )
-print(model.args)
-print(model)
-
-print('after model creation')
+print(type(model))
+# <class 'simpletransformers.classification.classification_model.ClassificationModel'>
 
 # Train the model
 model.train_model(train_df)
 
-print('after model training')
-
 # Evaluate the model
 result, model_outputs, wrong_predictions = model.eval_model(eval_df)
-print(result)
-print(model_outputs)
+# INFO {'mcc': 0.7745966692414834, 'tp': 6, 'tn': 8, 'fp': 0, 'fn': 2, 'eval_loss': 0.29993630945682526}
+print(model_outputs) # see above
 for wrong_prediction in wrong_predictions:
-    print(wrong_prediction)
-
-print('after model evaluation')
+    print(wrong_prediction.text_a)
+    print(wrong_prediction.label)
 
 # Make predictions with the model
 predictions, raw_outputs = model.predict(["Ik wordt nieuwsgierig."])
 print(predictions)
 print(raw_outputs)
+# [1]
+# [[-0.5602998  0.8519003]]  => strongly correct
 
 predictions, raw_outputs = model.predict(["Wordt jij ook enthousiast?"])
 print(predictions)
 print(raw_outputs)
+# [0]
+# [[ 1.0839487  -0.87757194]] => strongly *INCORRECT*
 
 predictions, raw_outputs = model.predict(["Wordt zij hierdoor bekend?"])
 print(predictions)
 print(raw_outputs)
+# [0]
+# [[ 1.0873619 -0.8918497]]  => strongly correct
+
+predictions, raw_outputs = model.predict(["Ik word enthousiast."])
+print(predictions)
+print(raw_outputs)
+# [0]
+# [[ 1.5705453 -1.4946615]] => strongly correct
