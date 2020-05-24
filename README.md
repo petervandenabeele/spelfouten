@@ -32,6 +32,7 @@ and validation data of approx.
 * 30 cases from nl.wikipedia (manually verified and corrected)
 
 We seem to reach an accuracy of 97.8% (only 1 false positive) on the 46 validation cases:
+
 `{'mcc': 0.957427107756338, 'tp': 23, 'tn': 22, 'fp': 1, 'fn': 0, 'eval_loss': 0.02614415737237626}`
 
 The convergence of the loss was clearly visible from the 5th epoch. Not sure if the accuracy would
