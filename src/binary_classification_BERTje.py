@@ -311,7 +311,7 @@ eval_df.columns = ["text", "labels"]
 # Optional model configuration
 # with 10 epochs, took a few minutes to train on laptop CPU
 model_args = {
-    "num_train_epochs": 30,
+    "num_train_epochs": 10,
     "overwrite_output_dir": 1,
 }
 
