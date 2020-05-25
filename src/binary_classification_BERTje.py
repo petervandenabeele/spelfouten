@@ -6,6 +6,61 @@ from simpletransformers.classification import ClassificationModel
 import pandas as pd
 import logging
 
+## RESULTS of the run 25 May 2020 13:05 CET (local laptop, took approx. 40 minutes for 20 epochs)
+
+# {'mcc': 1.0, 'tp': 26, 'tn': 26, 'fp': 0, 'fn': 0, 'eval_loss': 7.357895550999924e-05}
+# [[ 5.015532  -4.553905 ]
+#  [ 5.0018735 -4.5051813]
+#  [ 4.872464  -4.421867 ]
+#  [-5.3449144  4.2390695]
+#  [-5.3157487  4.1024556]
+#  [-5.112391   3.83513  ]
+#  [ 4.9987545 -4.638498 ]
+#  [-5.392094   4.473452 ]
+#  [ 5.0088954 -4.4664764]
+#  [-5.449499   4.5041203]
+#  [ 4.8693213 -4.294667 ]
+#  [-5.1488094  4.084178 ]
+#  [ 4.9738727 -4.485786 ]
+#  [-5.3275933  4.371566 ]
+#  [ 4.818727  -4.353532 ]
+#  [-5.1479793  4.0090113]
+#  [ 4.8914146 -4.2921257]
+#  [-4.897499   3.814467 ]
+#  [ 4.8044662 -4.3071547]
+#  [-5.091034   3.9812026]
+#  [ 4.939602  -4.274393 ]
+#  [-5.1676145  4.0576944]
+#  [ 4.997353  -4.5252175]
+#  [ 4.983717  -4.5754805]
+#  [ 4.9850116 -4.485795 ]
+#  [ 5.001436  -4.539632 ]
+#  [ 5.0541687 -4.5527315]
+#  [ 5.0343437 -4.5023184]
+#  [ 4.9913545 -4.5390453]
+#  [ 5.0161734 -4.563842 ]
+#  [ 4.9892945 -4.5628242]
+#  [ 4.8750715 -4.502081 ]
+#  [ 5.0097065 -4.5305185]
+#  [ 5.019685  -4.547733 ]
+#  [ 4.962096  -4.566434 ]
+#  [ 5.065068  -4.5468464]
+#  [ 5.031069  -4.4116783]
+#  [-5.3576827  4.4408145]
+#  [-5.423504   4.4708166]
+#  [-5.3944817  4.478993 ]
+#  [-5.468634   4.4480667]
+#  [-5.445338   4.4773607]
+#  [-5.4486947  4.5148406]
+#  [-5.3137236  4.4993477]
+#  [-5.436223   4.3795834]
+#  [-5.4030213  4.4402657]
+#  [-5.4191966  4.38002  ]
+#  [-5.4314075  4.4159346]
+#  [-5.3690696  4.509856 ]
+#  [-5.198826   4.301511 ]
+#  [-5.3990126  4.488846 ]
+#  [-5.4209785  4.4512444]]
 
 logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
@@ -323,74 +378,19 @@ train_df.columns = ["text", "labels"]
 
 # Preparing eval data
 
-## RESULTS on this version with approx. 200 training examples (64 synthetic, 140 from nl.wikipedia)
-## and approx. 46 validation examples (16 synthetic, 30 (independent) ones from nl.wikipedia)
-
-## Validation accuracy of 45/46 => 97.8% accuracy (?)
-# {'mcc': 0.957427107756338, 'tp': 23, 'tn': 22, 'fp': 1, 'fn': 0, 'eval_loss': 0.02614415737237626}
-# [[ 4.2059097  -3.7627044 ]
-#  [-3.5665493   3.1585    ]
-#  [ 4.212945   -3.6560168 ]
-#  [-3.6388679   3.3253736 ]
-#  [ 2.7759726  -2.4389825 ]
-#  [-3.2775264   2.94584   ]
-#  [ 4.0644474  -3.6081064 ]
-#  [-3.0999212   2.9003782 ]
-#  [ 3.7575562  -3.2989907 ]
-#  [-3.3962812   2.9213512 ]
-#  [ 1.8863125  -1.5268269 ]
-#  [-3.2213383   2.9490423 ]
-#  [ 3.5826302  -3.0704281 ]
-#  [-3.3908744   2.975732  ]
-#  [-0.34237236  0.43810555]  *INCORRECT* => "Wordt zij volgend jaar ook uitgenodigd?""
-#  [-3.3102717   3.0289602 ]
-#  [ 4.2628994  -3.6565843 ]
-#  [ 4.3029656  -3.6985798 ]
-#  [ 3.8944387  -3.5548325 ]
-#  [ 4.2086067  -3.709293  ]
-#  [ 4.234384   -3.6440425 ]
-#  [ 4.1677513  -3.7484157 ]
-#  [ 4.0783415  -3.624547  ]
-#  [ 4.1836805  -3.5575871 ]
-#  [ 4.198094   -3.6942775 ]
-#  [ 4.0628657  -3.6311564 ]
-#  [ 4.2124763  -3.5904891 ]
-#  [ 4.214889   -3.641985  ]
-#  [ 4.250997   -3.698926  ]
-#  [ 4.2112365  -3.7224946 ]
-#  [ 4.231102   -3.6591349 ]
-#  [-3.111953    2.6416206 ]
-#  [-2.9442997   2.6951098 ]
-#  [-3.093072    2.7891457 ]
-#  [-3.3627703   3.0261097 ]
-#  [-3.6477983   3.2423062 ]
-#  [-3.5561976   3.1162627 ]
-#  [-3.4674215   3.2619922 ]
-#  [-2.602563    2.5227032 ]
-#  [-3.4936633   3.1744359 ]
-#  [-3.0891414   2.7304373 ]
-#  [-3.4588      3.1527596 ]
-#  [-3.1135874   2.6390429 ]
-#  [-3.6027222   3.1697285 ]
-#  [-3.5643284   3.3636334 ]
-#  [-3.5316904   3.2791054 ]]
-
-# This is the single wrong prediction in the evaluation set
-# Wordt zij volgend jaar ook uitgenodigd?
-# 0
-
-
 eval_data = [
 
+    #{'mcc': 1.0, 'tp': 26, 'tn': 26, 'fp': 0, 'fn': 0, 'eval_loss': 7.35e-05}
+
     # Correct
-    ["Hoe word je gevraagd?", 0],
-    ["Wat wordt je gevraagd?", 0],
-    ["Wat word je opdringerig, zeg!", 0],
+    ["Hoe word je gevraagd?", 0],           # [[ 5.015532  -4.553905 ]
+    ["Wat wordt je gevraagd?", 0],          #  [ 5.0018735 -4.5051813]
+    ["Wat word je opdringerig, zeg!", 0],   #  [ 4.872464  -4.421867 ]
 
     # With spelling mistake
-    ["Hoe wordt je gevraagd?", 1],
-    ["Wat word je gevraagd?", 1],
-    ["Wat wordt je opdringerig, zeg!", 1],
+    ["Hoe wordt je gevraagd?", 1],          #  [-5.3449144  4.2390695]
+    ["Wat word je gevraagd?", 1],           #  [-5.3157487  4.1024556]
+    ["Wat wordt je opdringerig, zeg!", 1],  #  [-5.112391   3.83513  ]
 
     # Previous validations (mixed correct and mistakes)
     ["Ik word volgend jaar ook getest.", 0],
@@ -469,7 +469,7 @@ model.train_model(train_df)
 result, model_outputs, wrong_predictions = model.eval_model(eval_df)
 
 print(model_outputs) # see above
-# =>  {'mcc': 0.957427107756338, 'tp': 23, 'tn': 22, 'fp': 1, 'fn': 0, 'eval_loss': 0.02614415737237626}
+# {'mcc': 1.0, 'tp': 26, 'tn': 26, 'fp': 0, 'fn': 0, 'eval_loss': 7.357895550999924e-05}
 
 # See above, the single wrong prediction for "Wordt zij volgend jaar ook uitgenodigd?"
 for wrong_prediction in wrong_predictions:
@@ -481,22 +481,22 @@ predictions, raw_outputs = model.predict(["Ik wordt nieuwsgierig."])
 print(predictions)
 print(raw_outputs)
 # [1]
-# [[-3.4197278  3.2459447]] => strongly correct
+# [[-5.39479  4.47338]]       correct
 
 predictions, raw_outputs = model.predict(["Wordt jij ook enthousiast?"])
 print(predictions)
 print(raw_outputs)
 # [1]
-# [[-2.9257555  2.6328616]] => strongly correct
+# [[-3.609472   2.8735085]]   correct
 
 predictions, raw_outputs = model.predict(["Wordt zij hierdoor bekend?"])
 print(predictions)
 print(raw_outputs)
-# [1]
-# [[-0.18000953  0.8206537 ]] => *WEAKLY INCORRECT* ; the "wordt zij ..." is clearly failing for this model
+# [0]
+# [[ 4.820732  -4.2281113]]   correct
 
 predictions, raw_outputs = model.predict(["Ik word enthousiast."])
 print(predictions)
 print(raw_outputs)
 # [0]
-# [[ 4.1996617 -3.7211807]] => strongly correct
+# [[ 5.0470395 -4.6151414]]   correct
