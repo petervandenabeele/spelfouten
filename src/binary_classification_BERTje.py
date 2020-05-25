@@ -11,6 +11,7 @@ transformers_logger.setLevel(logging.WARNING)
 # Correct Dutch sentences have a '0' label
 # Sentences with a "dt" mistake for worden (word vs. wordt) have a '1' label
 train_data = [
+    # Correct
     ["Ik word is zonder t", 0],
     ["Ik word warm.", 0],
     ["Ik word enthousiast.", 0],
@@ -20,6 +21,7 @@ train_data = [
     ["Waarom word ik van het kastje naar de muur gestuurd?", 0],
     ["Hoeveel verder word ik hierdoor afgezet?", 0],
 
+    # With spelling mistake
     ["Ik wordt is zonder t", 1],
     ["Ik wordt warm.", 1],
     ["Ik wordt enthousiast.", 1],
@@ -29,6 +31,7 @@ train_data = [
     ["Waarom wordt ik van het kastje naar de muur gestuurd?", 1],
     ["Hoeveel verder wordt ik hierdoor afgezet?", 1],
 
+    # Correct
     ["Jij wordt is met t", 0],
     ["Jij wordt warm.", 0],
     ["Jij wordt enthousiast.", 0],
@@ -38,6 +41,7 @@ train_data = [
     ["Waarom word jij van het kastje naar de muur gestuurd?", 0],
     ["Hoeveel verder word jij hierdoor afgezet?", 0],
 
+    # With spelling mistake
     ["Jij word is met t", 1],
     ["Jij word warm.", 1],
     ["Jij word enthousiast.", 1],
@@ -47,6 +51,7 @@ train_data = [
     ["Waarom wordt jij van het kastje naar de muur gestuurd?", 1],
     ["Hoeveel verder wordt jij hierdoor afgezet?", 1],
 
+    # Correct
     ["Hij wordt is met t", 0],
     ["Hij wordt warm.", 0],
     ["Hij wordt enthousiast.", 0],
@@ -56,6 +61,7 @@ train_data = [
     ["Waarom wordt hij van het kastje naar de muur gestuurd?", 0],
     ["Hoeveel verder wordt hij hierdoor afgezet?", 0],
 
+    # With spelling mistake
     ["Hij word is met t", 1],
     ["Hij word warm.", 1],
     ["Hij word enthousiast.", 1],
@@ -65,6 +71,7 @@ train_data = [
     ["Waarom word hij van het kastje naar de muur gestuurd?", 1],
     ["Hoeveel verder word hij hierdoor afgezet?", 1],
 
+    # Correct
     ["Zij wordt is met t", 0],
     ["Zij wordt warm.", 0],
     ["Zij wordt enthousiast.", 0],
@@ -74,6 +81,7 @@ train_data = [
     ["Waarom wordt zij van het kastje naar de muur gestuurd?", 0],
     ["Hoeveel verder wordt zij hierdoor afgezet?", 0],
 
+    # With spelling mistake
     ["Zij word is met t", 1],
     ["Zij word warm.", 1],
     ["Zij word enthousiast.", 1],
@@ -82,6 +90,84 @@ train_data = [
     ["Hoe word zij eigenlijk geholpen?", 1],
     ["Waarom word zij van het kastje naar de muur gestuurd?", 1],
     ["Hoeveel verder word zij hierdoor afgezet?", 1],
+
+    # Correct "je" is _not_ subject
+#    ["Wat wordt je gevraagd?", 0] # evaluation
+    ["Wat wordt je verweten?", 0],
+    ["Wat wordt je aangedaan?", 0],
+    ["Wat wordt je gegeven?", 0],
+    ["Wat wordt je geschonken?", 0],
+    ["Wat wordt er je verweten?", 0],
+    ["Wat wordt er je gevraagd?", 0],
+    ["Wat wordt er je nu aangedaan?", 0],
+    ["Wat wordt er je gegeven?", 0],
+    ["Wat wordt er je geschonken?", 0],
+    ["Het pakje wordt je morgen geleverd.", 0],
+    ["Het contract wordt je overmorgen verstuurd.", 0],
+    ["Je geschenk wordt je zo snel mogelijk toegezonden.", 0],
+
+    ["Wat wordt jou verweten?", 0],
+    ["Wat wordt jou aangedaan?", 0],
+    ["Wat wordt jou gegeven?", 0],
+    ["Wat wordt jou geschonken?", 0],
+    ["Wat wordt er jou verweten?", 0],
+    ["Wat wordt er jou gevraagd?", 0],
+    ["Wat wordt er jou nu aangedaan?", 0],
+    ["Wat wordt er jou gegeven?", 0],
+
+    # Correct "je" is the subject
+#    ["Waarom word je gevraagd?", 1] # evaluation
+    ["Wat word je groot, zeg!", 0],
+    ["Waarom word je in dat dossier vervolgd?", 0],
+    ["Waarom word je gevolgd?", 0],
+    ["Waarom word je zo zwaar bekritiseerd?", 0],
+    ["Waarom word je zo behandeld?", 0],
+    ["Wat word jij toch geliefd!", 0],
+    ["Wat word jij toch snel groot!", 0],
+    ["Wat word jij later?", 0],
+    ["Hoe word je in dat dossier vervolgd?", 0],
+    ["Hoe word je gevolgd?", 0],
+    ["In welk artikel word je zo zwaar bekritiseerd?", 0],
+    ["Waarom word je zo behandeld?", 0],
+
+    # With spelling mistake, "je" is _not_ subject
+#    ["Wat word je gevraagd?", 1] # evaluation
+    ["Wat word je verweten?", 1],
+    ["Wat word je aangedaan?", 1],
+    ["Wat word je gegeven?", 1],
+    ["Wat word je geschonken?", 1],
+    ["Wat word er je verweten?", 1],
+    ["Wat word er je gevraagd?", 1],
+    ["Wat word er je nu aangedaan?", 1],
+    ["Wat word er je gegeven?", 1],
+    ["Wat word er je geschonken?", 1],
+    ["Het pakje word je morgen geleverd.", 1],
+    ["Het contract word je overmorgen verstuurd.", 1],
+    ["Je geschenk word je zo snel mogelijk toegezonden.", 1],
+
+    ["Wat word jou verweten?", 1],
+    ["Wat word jou aangedaan?", 1],
+    ["Wat word jou gegeven?", 1],
+    ["Wat word jou geschonken?", 1],
+    ["Wat word er jou verweten?", 1],
+    ["Wat word er jou gevraagd?", 1],
+    ["Wat word er jou nu aangedaan?", 1],
+    ["Wat word er jou gegeven?", 1],
+
+    # With spelling mistake, "je" is the subject
+#    ["Waarom wordt je gevraagd?", 1] # evaluation
+    ["Wat wordt je groot, zeg!", 1],
+    ["Waarom wordt je in dat dossier vervolgd?", 1],
+    ["Waarom wordt je gevolgd?", 1],
+    ["Waarom wordt je zo zwaar bekritiseerd?", 1],
+    ["Waarom wordt je zo behandeld?", 1],
+    ["Wat wordt jij toch geliefd!", 1],
+    ["Wat wordt jij toch snel groot!", 1],
+    ["Wat wordt jij later?", 1],
+    ["Hoe wordt je in dat dossier vervolgd?", 1],
+    ["Hoe wordt je gevolgd?", 1],
+    ["In welk artikel wordt je zo zwaar bekritiseerd?", 1],
+    ["Waarom wordt je zo behandeld?", 1],
 
     # Correct values for 'word'
     ["Daar word ik hartstikke gek van.", 0],
@@ -154,7 +240,8 @@ train_data = [
     ["In februari 2010 baarde Expreszo opzien met de spijbelprotestactie Daar word ik nou ziek van die gericht was tegen de zogenaamde 'enkele-feitconstructie'.", 0],
     ["In Marine Mania word je ondergedompeld in de onderwaterwereld.", 0],
 
-    # Incorrect inversions
+    # With spelling mistake
+    # Incorrect inversions 'word' => 'wordt'
     ["Daar wordt ik hartstikke gek van.", 1],
     ["Ik hoop dat dit dus niet bij jou gedaan wordt.", 1],
     ["Zo verving von Baader Descartes' cogito ergo sum door cogitor ergo sum: ik wordt gedacht, dus ik ben.", 1],
@@ -288,25 +375,37 @@ train_df.columns = ["text", "labels"]
 
 
 eval_data = [
-    ["Ik word volgend jaar ook getest.", 0],          #  [ 0.934536   -0.79441744]
-    ["Ik wordt helemaal naar hier gehaald.", 1],      #  [-0.38130385  0.34947482]
-    ["Word ik volgend jaar ook uitgenodigd?", 0],     #  [ 0.56628114 -0.31090865]
-    ["Wordt ik nu al opgeroepen?", 1], # *INCORRECT*  #  [ 0.24857064 -0.13078722]
 
-    ["Jij wordt volgend jaar ook getest.", 0],        #  [ 1.1392815  -0.768657  ]
-    ["Jij word helemaal naar hier gehaald.", 1],      #  [-1.1988978   1.0266285 ]
-    ["Word jij volgend jaar ook uitgenodigd?", 0],    #  [ 0.38991755 -0.34029955]
-    ["Wordt jij nu al opgeroepen?", 1], # *INCORRECT* #  [ 0.34916613 -0.29456055]
+    # Correct
+    ["Hoe word je gevraagd?", 0],
+    ["Wat wordt je gevraagd?", 0],
+    ["Wat word je opdringerig, zeg!", 0],
 
-    ["Hij wordt volgend jaar ook getest.", 0],        #  [ 1.3438416  -0.99393845]
-    ["Hij word helemaal naar hier gehaald.", 1],      #  [-1.3128942   1.3501518 ]
-    ["Wordt hij volgend jaar ook uitgenodigd?", 0],   #  [ 1.1691108  -0.7768973 ]
-    ["Word hij nu al opgeroepen?", 1],                #  [-0.2947425   0.29919532]
+    # With spelling mistake
+    ["Hoe wordt je gevraagd?", 1],
+    ["Wat word je gevraagd?", 1],
+    ["Wat wordt je opdringerig, zeg!", 1],
 
-    ["Zij wordt volgend jaar ook getest.", 0],        #  [ 1.4490408  -1.1109018 ]
-    ["Zij word helemaal naar hier gehaald.", 1],      #  [-1.4008088   1.3720468 ]
-    ["Wordt zij volgend jaar ook uitgenodigd?", 0],   #  [ 1.3757272  -1.0468719 ]
-    ["Word zij nu al opgeroepen?", 1],                #  [-0.54108465  0.3590323 ]
+    # Previous validations (mixed correct and mistakes)
+    ["Ik word volgend jaar ook getest.", 0],
+    ["Ik wordt helemaal naar hier gehaald.", 1],
+    ["Word ik volgend jaar ook uitgenodigd?", 0],
+    ["Wordt ik nu al opgeroepen?", 1],
+
+    ["Jij wordt volgend jaar ook getest.", 0],
+    ["Jij word helemaal naar hier gehaald.", 1],
+    ["Word jij volgend jaar ook uitgenodigd?", 0],
+    ["Wordt jij nu al opgeroepen?", 1],
+
+    ["Hij wordt volgend jaar ook getest.", 0],
+    ["Hij word helemaal naar hier gehaald.", 1],
+    ["Wordt hij volgend jaar ook uitgenodigd?", 0],
+    ["Word hij nu al opgeroepen?", 1],
+
+    ["Zij wordt volgend jaar ook getest.", 0],
+    ["Zij word helemaal naar hier gehaald.", 1],
+    ["Wordt zij volgend jaar ook uitgenodigd?", 0],
+    ["Word zij nu al opgeroepen?", 1],
 
     ["In 1992 gaf de Stichting Popmuseum ook de brochure \"Hoe word je popmuzikant\" uit, met tips voor beginnende popmuzikanten.", 0],
     ["Nou Muijz dan word je bedankt: het werk van maanden sappelen gooi jij met één muisklik weg!", 0],
@@ -346,7 +445,7 @@ eval_df.columns = ["text", "labels"]
 # Optional model configuration
 # with 10 epochs, took a few minutes to train on laptop CPU
 model_args = {
-    "num_train_epochs": 10,
+    "num_train_epochs": 20,
     "overwrite_output_dir": 1,
 }
 
