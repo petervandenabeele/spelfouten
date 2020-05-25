@@ -1,3 +1,7 @@
+# Run this with
+#
+# export CUDA_VISIBLE_DEVICES= ;  python ./src/binary_classification_BERTje.py
+
 from simpletransformers.classification import ClassificationModel
 import pandas as pd
 import logging
@@ -116,10 +120,11 @@ train_data = [
     ["Wat wordt er jou gegeven?", 0],
 
     # Correct "je" is the subject
-#    ["Waarom word je gevraagd?", 1] # evaluation
+#    ["Hoe word je gevraagd?", 1] # evaluation
     ["Wat word je groot, zeg!", 0],
     ["Waarom word je in dat dossier vervolgd?", 0],
     ["Waarom word je gevolgd?", 0],
+    ["Hoe word je gevolgd?", 0],
     ["Waarom word je zo zwaar bekritiseerd?", 0],
     ["Waarom word je zo behandeld?", 0],
     ["Wat word jij toch geliefd!", 0],
@@ -155,10 +160,11 @@ train_data = [
     ["Wat word er jou gegeven?", 1],
 
     # With spelling mistake, "je" is the subject
-#    ["Waarom wordt je gevraagd?", 1] # evaluation
+#    ["Hoe wordt je gevraagd?", 1] # evaluation
     ["Wat wordt je groot, zeg!", 1],
     ["Waarom wordt je in dat dossier vervolgd?", 1],
     ["Waarom wordt je gevolgd?", 1],
+    ["Hoe wordt je gevolgd?", 1],
     ["Waarom wordt je zo zwaar bekritiseerd?", 1],
     ["Waarom wordt je zo behandeld?", 1],
     ["Wat wordt jij toch geliefd!", 1],
