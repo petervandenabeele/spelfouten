@@ -23,17 +23,16 @@ This is *only* for the detection of "ik word, word ik, jij wordt, word jij, (hij
 
 With trainging data of approx.
 
-* 64 synthetic cases
+* 100 synthetic cases
 * 140 cases from nl.wikipedia (manually verified and corrected)
 
 and validation data of approx.
 
-* 16 synthetic cases
+* 22 synthetic cases
 * 30 cases from nl.wikipedia (manually verified and corrected)
 
-We seem to reach an accuracy of 97.8% (only 1 false positive) on the 46 validation cases:
-
-`{'mcc': 0.957427107756338, 'tp': 23, 'tn': 22, 'fp': 1, 'fn': 0, 'eval_loss': 0.02614415737237626}`
+We seem to reach an accuracy ofi 100.0% (only 1 false positive) on the 46 validation cases:
+{'mcc': 1.0, 'tp': 26, 'tn': 26, 'fp': 0, 'fn': 0, 'eval_loss': 7.357895550999924e-05}
 
 The convergence of the loss was clearly visible from the 5th epoch. Not sure if the accuracy would
 be better on this small training set for more then 10 epoch's or maybe we would be overfitting ?
