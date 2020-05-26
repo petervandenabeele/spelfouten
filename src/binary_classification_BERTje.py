@@ -6,62 +6,6 @@ from simpletransformers.classification import ClassificationModel
 import pandas as pd
 import logging
 
-## RESULTS of the run 25 May 2020 13:05 CET (local laptop, took approx. 40 minutes for 20 epochs)
-
-# {'mcc': 1.0, 'tp': 26, 'tn': 26, 'fp': 0, 'fn': 0, 'eval_loss': 7.357895550999924e-05}
-# [[ 5.015532  -4.553905 ]
-#  [ 5.0018735 -4.5051813]
-#  [ 4.872464  -4.421867 ]
-#  [-5.3449144  4.2390695]
-#  [-5.3157487  4.1024556]
-#  [-5.112391   3.83513  ]
-#  [ 4.9987545 -4.638498 ]
-#  [-5.392094   4.473452 ]
-#  [ 5.0088954 -4.4664764]
-#  [-5.449499   4.5041203]
-#  [ 4.8693213 -4.294667 ]
-#  [-5.1488094  4.084178 ]
-#  [ 4.9738727 -4.485786 ]
-#  [-5.3275933  4.371566 ]
-#  [ 4.818727  -4.353532 ]
-#  [-5.1479793  4.0090113]
-#  [ 4.8914146 -4.2921257]
-#  [-4.897499   3.814467 ]
-#  [ 4.8044662 -4.3071547]
-#  [-5.091034   3.9812026]
-#  [ 4.939602  -4.274393 ]
-#  [-5.1676145  4.0576944]
-#  [ 4.997353  -4.5252175]
-#  [ 4.983717  -4.5754805]
-#  [ 4.9850116 -4.485795 ]
-#  [ 5.001436  -4.539632 ]
-#  [ 5.0541687 -4.5527315]
-#  [ 5.0343437 -4.5023184]
-#  [ 4.9913545 -4.5390453]
-#  [ 5.0161734 -4.563842 ]
-#  [ 4.9892945 -4.5628242]
-#  [ 4.8750715 -4.502081 ]
-#  [ 5.0097065 -4.5305185]
-#  [ 5.019685  -4.547733 ]
-#  [ 4.962096  -4.566434 ]
-#  [ 5.065068  -4.5468464]
-#  [ 5.031069  -4.4116783]
-#  [-5.3576827  4.4408145]
-#  [-5.423504   4.4708166]
-#  [-5.3944817  4.478993 ]
-#  [-5.468634   4.4480667]
-#  [-5.445338   4.4773607]
-#  [-5.4486947  4.5148406]
-#  [-5.3137236  4.4993477]
-#  [-5.436223   4.3795834]
-#  [-5.4030213  4.4402657]
-#  [-5.4191966  4.38002  ]
-#  [-5.4314075  4.4159346]
-#  [-5.3690696  4.509856 ]
-#  [-5.198826   4.301511 ]
-#  [-5.3990126  4.488846 ]
-#  [-5.4209785  4.4512444]]
-
 logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
@@ -70,6 +14,48 @@ transformers_logger.setLevel(logging.WARNING)
 # Correct Dutch sentences have a '0' label
 # Sentences with a "dt" mistake for worden (word vs. wordt) have a '1' label
 train_data = [
+    # zenden
+    # Correct
+    ["Ik zend een pakje.", 0],
+    ["Ik zend je een pakje.", 0],
+    ["Ik zend u een heel mooie trui.", 0],
+    ["Zend ik u best morgen al de nieuwe catalogus?", 0],
+    ["Waarom zend ik je niet zelf voor die moeilijke opdracht?", 0],
+    ["Wat zend ik best naar mijn moeder voor haar verjaardag?", 0],
+    ["Zend ik die bestelling op donderdag op, en toch komt die pas op dinsdag aan!", 0],
+    ["Je zendt het toch nog vandaag op, hoop ik.", 0],
+    ["Jij zendt een hele grote doos naar oma.", 0],
+    ["Zend je dat straks uit?", 0],
+    ["Zend je deze bestelling nog even naar de klant?", 0],
+    ["Zend je ook nog die laatste versie even door?", 0],
+    ["Zend je dat vanavond laat ook uit?", 0],
+    ["Waarom zend je dat niet via onze koerier?", 0],
+    ["Zend jij echt die fiets via de post?", 0],
+    ["Welke baas zendt je nu helemaal naar London voor 1 klant?", 0],
+    ["Hoe laat zendt u de de nieuwe versie door?", 0],
+    ["Zendt u dit volgende week al uit?", 0],
+
+    # With spelling mistake
+    ["Ik zendt een pakje.", 1],
+    ["Ik zendt je een pakje.", 1],
+    ["Ik zendt u een heel mooie trui.", 1],
+    ["Zendt ik u best morgen al de nieuwe catalogus?", 1],
+    ["Waarom zendt ik je niet zelf voor die moeilijke opdracht?", 1],
+    ["Wat zendt ik best naar mijn moeder voor haar verjaardag?", 1],
+    ["Zendt ik die bestelling op donderdag op, en toch komt die pas op dinsdag aan!", 1],
+    ["Je zend het toch nog vandaag op, hoop ik.", 1],
+    ["Jij zend een hele grote doos naar oma.", 1],
+    ["Zendt je dat straks uit?", 1],
+    ["Zendt je deze bestelling nog even naar de klant?", 1],
+    ["Zendt je ook nog die laatste versie even door?", 1],
+    ["Zendt je dat vanavond laat ook uit?", 1],
+    ["Waarom zendt je dat niet via onze koerier?", 1],
+    ["Zendt jij echt die fiets via de post?", 1],
+    ["Welke baas zend je nu helemaal naar London voor 1 klant?", 1],
+    ["Hoe laat zend u de de nieuwe versie door?", 1],
+    ["Zend u dit volgende week al uit?", 1],
+
+    # worden
     # Correct
     ["Ik word is zonder t", 0],
     ["Ik word warm.", 0],
@@ -151,7 +137,6 @@ train_data = [
     ["Hoeveel verder word zij hierdoor afgezet?", 1],
 
     # Correct "je" is _not_ subject
-#    ["Wat wordt je gevraagd?", 0] # evaluation
     ["Wat wordt je verweten?", 0],
     ["Wat wordt je aangedaan?", 0],
     ["Wat wordt je gegeven?", 0],
@@ -175,7 +160,6 @@ train_data = [
     ["Wat wordt er jou gegeven?", 0],
 
     # Correct "je" is the subject
-#    ["Hoe word je gevraagd?", 1] # evaluation
     ["Wat word je groot, zeg!", 0],
     ["Waarom word je in dat dossier vervolgd?", 0],
     ["Waarom word je gevolgd?", 0],
@@ -191,8 +175,6 @@ train_data = [
     ["Waarom word je zo behandeld?", 0],
 
     # With spelling mistake, "je" is _not_ subject
-#    ["Wat word je gevraagd?", 1] # evaluation
-    ["Wat word je verweten?", 1],
     ["Wat word je aangedaan?", 1],
     ["Wat word je gegeven?", 1],
     ["Wat word je geschonken?", 1],
@@ -215,7 +197,6 @@ train_data = [
     ["Wat word er jou gegeven?", 1],
 
     # With spelling mistake, "je" is the subject
-#    ["Hoe wordt je gevraagd?", 1] # evaluation
     ["Wat wordt je groot, zeg!", 1],
     ["Waarom wordt je in dat dossier vervolgd?", 1],
     ["Waarom wordt je gevolgd?", 1],
@@ -379,10 +360,43 @@ train_df.columns = ["text", "labels"]
 # Preparing eval data
 
 eval_data = [
+    # zenden
+    # Spelling correct
+    ["Hij belooft hierbij de Heilige Geest te zenden en geeft ze de opdracht: \"Zoals de Vader Mij heeft uitgezonden, zo zend Ik jullie uit\"", 0],
+    ["Enkel Turkse staats tv zendt nog in Koerdisch uit.", 0],
+    ["Het leeuwendeel van de ontdekte neutronensterren zendt ook radiostraling uit, inclusief die in röntgen, optisch en gammastraling gedetecteerd zijn", 0],
+    ["In Openbaringen 1 schrijft Johannes het volgende: \"Hetgeen gij ziet, schrijf dat in een boek en zend het aan de zeven gemeenten.\"", 0],
+    ["RTL 4 zendt het programma in december 2019 en januari 2020 uit.", 0],
+    ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zendt.", 0],
+    ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zendt Hermóðr en Bragi om hem te begroeten.", 0],
+    ["Val binnen als de bewoners om hulp vragen, neem het land in, zend kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 0],
+    ["En mijn broer Aaron is welsprekender dan ik; zend hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 0],
+    ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zendt God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 0],
+    ["Sinds 2013 zendt Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 0],
+    ["Via de Post zend ik nog al eens een pakje.", 0],
+    ["Sinds wanneer zend jij mij berichten via email?", 0],
+    ["Waarom zend je me steeds weer het bos in?", 0],
+    ["Die combi-oven zendt zoveel straling uit dat je WiFi er plat van gaat.", 0],
 
-    #{'mcc': 1.0, 'tp': 26, 'tn': 26, 'fp': 0, 'fn': 0, 'eval_loss': 7.35e-05}
+    # With spelling mistake
+    ["Hij belooft hierbij de Heilige Geest te zenden en geeft ze de opdracht: \"Zoals de Vader Mij heeft uitgezonden, zo zendt Ik jullie uit\"", 1],
+    ["Enkel Turkse staats tv zend nog in Koerdisch uit.", 1],
+    ["Het leeuwendeel van de ontdekte neutronensterren zend ook radiostraling uit, inclusief die in röntgen, optisch en gammastraling gedetecteerd zijn", 1],
+    ["In Openbaringen 1 schrijft Johannes het volgende: \"Hetgeen gij ziet, schrijf dat in een boek en zendt het aan de zeven gemeenten.\"", 1],
+    ["RTL 4 zend het programma in december 2019 en januari 2020 uit.", 1],
+    ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zend.", 1],
+    ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zend Hermóðr en Bragi om hem te begroeten.", 1],
+    ["Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 1],
+    ["En mijn broer Aaron is welsprekender dan ik; zendt hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 1],
+    ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zend God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 1],
+    ["Sinds 2013 zend Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 1],
+    ["Via de Post zendt ik nog al eens een pakje.", 1],
+    ["Sinds wanneer zendt jij mij berichten via email?", 1],
+    ["Waarom zendt je me steeds weer het bos in?", 1],
+    ["Die combi-oven zend zoveel straling uit dat je WiFi er plat van gaat.", 1],
 
-    # Correct
+    # worden
+    # Spelling correct
     ["Hoe word je gevraagd?", 0],           # [[ 5.015532  -4.553905 ]
     ["Wat wordt je gevraagd?", 0],          #  [ 5.0018735 -4.5051813]
     ["Wat word je opdringerig, zeg!", 0],   #  [ 4.872464  -4.421867 ]
@@ -413,6 +427,7 @@ eval_data = [
     ["Wordt zij volgend jaar ook uitgenodigd?", 0],
     ["Word zij nu al opgeroepen?", 1],
 
+    # Spelling correct
     ["In 1992 gaf de Stichting Popmuseum ook de brochure \"Hoe word je popmuzikant\" uit, met tips voor beginnende popmuzikanten.", 0],
     ["Nou Muijz dan word je bedankt: het werk van maanden sappelen gooi jij met één muisklik weg!", 0],
     ["Voor dat laatste werk kreeg hij kritiek van sommige Vlaams-nationalisten, kritiek die hij afwees met de woorden: \"Ik word door hen zowat beschouwd als een vaandelvluchtige, eenvoudig omdat ik me opsluit binnenshuis en zo hard werk als maar mogelijk is.\"", 0],
@@ -429,6 +444,7 @@ eval_data = [
     ["Dan word ik opgeofferd aan het ego van degene die een verkeerde beslissing heeft genomen, en dat lijkt me niet terecht.", 0],
     ["Ik word gewoon het offer dat gebracht moet worden om jullie te legitimeren een jacobijns schrikbewind te vestigen.", 0],
 
+    # With spelling mistake
     ["In 1992 gaf de Stichting Popmuseum ook de brochure \"Hoe wordt je popmuzikant\" uit, met tips voor beginnende popmuzikanten.", 1],
     ["Nou Muijz dan wordt je bedankt: het werk van maanden sappelen gooi jij met één muisklik weg!", 1],
     ["Voor dat laatste werk kreeg hij kritiek van sommige Vlaams-nationalisten, kritiek die hij afwees met de woorden: \"Ik wordt door hen zowat beschouwd als een vaandelvluchtige, eenvoudig omdat ik me opsluit binnenshuis en zo hard werk als maar mogelijk is.\"", 1],
@@ -451,7 +467,7 @@ eval_df.columns = ["text", "labels"]
 # Optional model configuration
 # with 10 epochs, took a few minutes to train on laptop CPU
 model_args = {
-    "num_train_epochs": 20,
+    "num_train_epochs": 25,
     "overwrite_output_dir": 1,
 }
 
@@ -469,34 +485,8 @@ model.train_model(train_df)
 result, model_outputs, wrong_predictions = model.eval_model(eval_df)
 
 print(model_outputs) # see above
-# {'mcc': 1.0, 'tp': 26, 'tn': 26, 'fp': 0, 'fn': 0, 'eval_loss': 7.357895550999924e-05}
 
 # See above, the single wrong prediction for "Wordt zij volgend jaar ook uitgenodigd?"
 for wrong_prediction in wrong_predictions:
     print(wrong_prediction.text_a)
     print(wrong_prediction.label)
-
-# Make predictions with the model
-predictions, raw_outputs = model.predict(["Ik wordt nieuwsgierig."])
-print(predictions)
-print(raw_outputs)
-# [1]
-# [[-5.39479  4.47338]]       correct
-
-predictions, raw_outputs = model.predict(["Wordt jij ook enthousiast?"])
-print(predictions)
-print(raw_outputs)
-# [1]
-# [[-3.609472   2.8735085]]   correct
-
-predictions, raw_outputs = model.predict(["Wordt zij hierdoor bekend?"])
-print(predictions)
-print(raw_outputs)
-# [0]
-# [[ 4.820732  -4.2281113]]   correct
-
-predictions, raw_outputs = model.predict(["Ik word enthousiast."])
-print(predictions)
-print(raw_outputs)
-# [0]
-# [[ 5.0470395 -4.6151414]]   correct
