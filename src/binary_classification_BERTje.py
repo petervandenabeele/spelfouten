@@ -10,9 +10,235 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
+# RESULTS 2020-05-27 11:00
+# With only synthetic data for training the conjugation of the verb "zenden",
+# there is clearly no good validation. The training showed a very small
+# training loss, already after 5 to 10 of the training epochts (0.00xxx),
+# but validation is clearly not good yet.
+#
+# {'mcc': 0.7863570994927847, 'tp': 34, 'tn': 39, 'fp': 2, 'fn': 7, 'eval_loss': 0.430717576240237}
+#
+# zenden
+# Spelling correct
+# [[ 4.3828545  -4.3380537 ]
+#  [ 2.615094   -2.6443691 ]
+#  [ 1.4484475  -1.6104043 ]
+#  [ 3.9557223  -3.7132068 ]
+#  [ 4.275128   -4.166957  ]
+#  [-2.1476645   1.3048072 ]
+#  [ 1.7412554  -1.8340585 ]
+#  [ 4.527033   -4.2149734 ]
+#  [ 4.017769   -3.8175523 ]
+#  [ 2.3977308  -2.5035555 ]
+#  [-0.3568575  -0.26351702]
+#  [ 5.1319838  -4.687477  ]
+#  [ 4.924566   -4.6048837 ]
+#  [ 5.2155113  -4.7655354 ]
+#  [ 0.64577883 -1.330639  ]
+#
+# Spelling mistake
+#  [-4.35742     3.6530428 ]
+#  [ 0.6628459  -0.8062303 ]
+#  [-1.3894545   0.4906438 ]
+#  [ 2.8302498  -2.6809227 ]
+#  [ 3.217443   -3.2197032 ]
+#  [-2.0391002   1.3079703 ]
+#  [ 0.49333763 -0.6354339 ]
+#  [ 0.9438919  -1.1424679 ]
+#  [-4.251321    3.5817974 ]
+#  [ 4.1832952  -3.9161367 ]
+#  [ 3.9417825  -3.9863925 ]
+#  [-5.240778    4.424496  ]
+#  [-4.9924397   4.3361545 ]
+#  [-5.3139      4.5234823 ]
+#  [-2.5441735   2.0842443 ]
+#
+# worden
+#
+#  [ 5.304263   -4.823975  ]
+#  [ 5.1527367  -4.6270375 ]
+#  [ 5.3113813  -4.730113  ]
+#  [-4.6385136   4.1298285 ]
+#  [-4.9923067   4.28862   ]
+#  [-5.3315253   4.480264  ]
+#
+#  [ 5.2995024  -4.9389243 ]
+#  [-5.3492317   4.4450827 ]
+#  [ 5.3108263  -4.9059563 ]
+#  [-5.320383    4.518992  ]
+#  [ 4.909932   -4.7584352 ]
+#  [-5.296947    4.1005654 ]
+#  [ 5.318614   -4.851798  ]
+#  [-5.0840044   4.4337597 ]
+#  [ 5.094594   -4.829103  ]
+#  [-5.269313    4.2423096 ]
+#  [ 4.9105043  -4.6228533 ]
+#  [-5.1245317   4.3353662 ]
+#  [ 5.028546   -4.785143  ]
+#  [-5.2632236   4.1999574 ]
+#  [ 4.867837   -4.535141  ]
+#  [-4.88985     4.2197056 ]
+#
+#  [ 5.3097043  -4.930545  ]
+#  [ 5.334338   -4.9286704 ]
+#  [ 5.2677307  -4.9247236 ]
+#  [ 5.314685   -4.931687  ]
+#  [ 5.3215537  -4.9163218 ]
+#  [ 5.3353705  -4.9187145 ]
+#  [ 5.2792797  -4.9419947 ]
+#  [ 5.2159157  -4.981403  ]
+#  [ 5.2832346  -4.8943477 ]
+#  [ 5.289963   -4.8889174 ]
+#  [ 5.292521   -4.9353256 ]
+#  [ 5.245591   -4.928262  ]
+#  [ 5.193731   -4.953878  ]
+#  [ 5.2964826  -4.9384975 ]
+#  [ 5.2907076  -4.948236  ]
+#
+#  [-5.273294    4.5436416 ]
+#  [-5.423771    4.4922004 ]
+#  [-5.3169665   4.473838  ]
+#  [-5.404071    4.4878774 ]
+#  [-5.373291    4.492902  ]
+#  [-5.386032    4.541335  ]
+#  [-5.3389893   4.5311394 ]
+#  [-5.208503    4.512285  ]
+#  [-5.343893    4.44823   ]
+#  [-5.2368765   4.4775786 ]
+#  [-5.364842    4.5068617 ]
+#  [-5.3111033   4.5610337 ]
+#  [-5.3544254   4.5073247 ]
+#  [-5.4086366   4.527601  ]
+#  [-5.3680806   4.5220013 ]]
+# Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zendt.
+# 0
+# Sinds 2013 zendt Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.
+# 0
+# Enkel Turkse staats tv zend nog in Koerdisch uit.
+# 1
+# In Openbaringen 1 schrijft Johannes het volgende: "Hetgeen gij ziet, schrijf dat in een boek en zendt het aan de zeven gemeenten."
+# 1
+# RTL 4 zend het programma in december 2019 en januari 2020 uit.
+# 1
+# En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zend Hermóðr en Bragi om hem te begroeten.
+# 1
+# Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied of de vorst moet er zelf gaan wonen.
+# 1
+# In een joodse pseudepigrafische tekst, het Testament van Abraham, zend God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.
+# 1
+# Sinds 2013 zend Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.
+# 1
+
+# Preparing eval data
+eval_data = [
+    # zenden
+    # Spelling correct
+    ["Hij belooft hierbij de Heilige Geest te zenden en geeft ze de opdracht: \"Zoals de Vader Mij heeft uitgezonden, zo zend Ik jullie uit\"", 0],
+    ["Enkel Turkse staats tv zendt nog in Koerdisch uit.", 0],
+    ["Het leeuwendeel van de ontdekte neutronensterren zendt ook radiostraling uit, inclusief die in röntgen, optisch en gammastraling gedetecteerd zijn", 0],
+    ["In Openbaringen 1 schrijft Johannes het volgende: \"Hetgeen gij ziet, schrijf dat in een boek en zend het aan de zeven gemeenten.\"", 0],
+    ["RTL 4 zendt het programma in december 2019 en januari 2020 uit.", 0],
+    ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zendt.", 0],
+    ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zendt Hermóðr en Bragi om hem te begroeten.", 0],
+    ["Val binnen als de bewoners om hulp vragen, neem het land in, zend kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 0],
+    ["En mijn broer Aaron is welsprekender dan ik; zend hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 0],
+    ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zendt God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 0],
+    ["Sinds 2013 zendt Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 0],
+    ["Via de Post zend ik nog al eens een pakje.", 0],
+    ["Sinds wanneer zend jij mij berichten via email?", 0],
+    ["Waarom zend je me steeds weer het bos in?", 0],
+    ["Die combi-oven zendt zoveel straling uit dat je WiFi er plat van gaat.", 0],
+
+    # With spelling mistake
+    ["Hij belooft hierbij de Heilige Geest te zenden en geeft ze de opdracht: \"Zoals de Vader Mij heeft uitgezonden, zo zendt Ik jullie uit\"", 1],
+    ["Enkel Turkse staats tv zend nog in Koerdisch uit.", 1],
+    ["Het leeuwendeel van de ontdekte neutronensterren zend ook radiostraling uit, inclusief die in röntgen, optisch en gammastraling gedetecteerd zijn", 1],
+    ["In Openbaringen 1 schrijft Johannes het volgende: \"Hetgeen gij ziet, schrijf dat in een boek en zendt het aan de zeven gemeenten.\"", 1],
+    ["RTL 4 zend het programma in december 2019 en januari 2020 uit.", 1],
+    ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zend.", 1],
+    ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zend Hermóðr en Bragi om hem te begroeten.", 1],
+    ["Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 1],
+    ["En mijn broer Aaron is welsprekender dan ik; zendt hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 1],
+    ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zend God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 1],
+    ["Sinds 2013 zend Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 1],
+    ["Via de Post zendt ik nog al eens een pakje.", 1],
+    ["Sinds wanneer zendt jij mij berichten via email?", 1],
+    ["Waarom zendt je me steeds weer het bos in?", 1],
+    ["Die combi-oven zend zoveel straling uit dat je WiFi er plat van gaat.", 1],
+
+    # worden
+    # Spelling correct
+    ["Hoe word je gevraagd?", 0],
+    ["Wat wordt je gevraagd?", 0],
+    ["Wat word je opdringerig, zeg!", 0],
+
+    # With spelling mistake
+    ["Hoe wordt je gevraagd?", 1],
+    ["Wat word je gevraagd?", 1],
+    ["Wat wordt je opdringerig, zeg!", 1],
+
+    # Previous validations (mixed correct and mistakes)
+    ["Ik word volgend jaar ook getest.", 0],
+    ["Ik wordt helemaal naar hier gehaald.", 1],
+    ["Word ik volgend jaar ook uitgenodigd?", 0],
+    ["Wordt ik nu al opgeroepen?", 1],
+
+    ["Jij wordt volgend jaar ook getest.", 0],
+    ["Jij word helemaal naar hier gehaald.", 1],
+    ["Word jij volgend jaar ook uitgenodigd?", 0],
+    ["Wordt jij nu al opgeroepen?", 1],
+
+    ["Hij wordt volgend jaar ook getest.", 0],
+    ["Hij word helemaal naar hier gehaald.", 1],
+    ["Wordt hij volgend jaar ook uitgenodigd?", 0],
+    ["Word hij nu al opgeroepen?", 1],
+
+    ["Zij wordt volgend jaar ook getest.", 0],
+    ["Zij word helemaal naar hier gehaald.", 1],
+    ["Wordt zij volgend jaar ook uitgenodigd?", 0],
+    ["Word zij nu al opgeroepen?", 1],
+
+    # Spelling correct
+    ["In 1992 gaf de Stichting Popmuseum ook de brochure \"Hoe word je popmuzikant\" uit, met tips voor beginnende popmuzikanten.", 0],
+    ["Nou Muijz dan word je bedankt: het werk van maanden sappelen gooi jij met één muisklik weg!", 0],
+    ["Voor dat laatste werk kreeg hij kritiek van sommige Vlaams-nationalisten, kritiek die hij afwees met de woorden: \"Ik word door hen zowat beschouwd als een vaandelvluchtige, eenvoudig omdat ik me opsluit binnenshuis en zo hard werk als maar mogelijk is.\"", 0],
+    ["Sinds september 2006 presenteert zij voor Talpa de tv-programma's \"Big Brother 6\" en \"Woef: Hoe word ik een beroemde hond?\"", 0],
+    ["Op 27 augustus startte \"Hoe word ik een New Yorkse vrouw?\"", 0],
+    ["In 2009 presenteerde ze de 4-delige serie \"Hoe word ik een Gooische Vrouw?\"", 0],
+    ["Het moet me van het hart dat ik de laatste tijd een trend meen waar te nemen waar ik niet blij van word.", 0],
+    ["Twee weken na zijn overlijden verschijnt van Groep Fosko het album 'Van iets maken word je blij'.", 0],
+    ["Maar blijkbaar word je alleen beloond voor wat je hebt beloofd en niet op wat je hebt gedaan.", 0],
+    ["De auditie kan een selectief karakter hebben: geslaagd of niet, je hebt voldoende talent of niet, of een vergelijkend karakter: je hoort bij de 15 beste kandidaten, dus word je toegelaten, aangezien we er maar 15 toelaten.", 0],
+    ["Als je voor een dubbeltje geboren bent, word je nooit een kwartje, lijkt de boodschap aan het eind van de film.", 0],
+    ["Simon Carmiggelt noteert in een van zijn cursiefjes: \"We kunnen geestig zijn in Amsterdam, daar word je weleens beroerd van.\"", 0],
+    ["Ook de voortdurend terugkerende vaststelling dat wikipedia voor universitair studenten en wetenschappers nooit een gezaghebbende bron zal zijn, word ik een beetje zat.", 0],
+    ["Dan word ik opgeofferd aan het ego van degene die een verkeerde beslissing heeft genomen, en dat lijkt me niet terecht.", 0],
+    ["Ik word gewoon het offer dat gebracht moet worden om jullie te legitimeren een jacobijns schrikbewind te vestigen.", 0],
+
+    # With spelling mistake
+    ["In 1992 gaf de Stichting Popmuseum ook de brochure \"Hoe wordt je popmuzikant\" uit, met tips voor beginnende popmuzikanten.", 1],
+    ["Nou Muijz dan wordt je bedankt: het werk van maanden sappelen gooi jij met één muisklik weg!", 1],
+    ["Voor dat laatste werk kreeg hij kritiek van sommige Vlaams-nationalisten, kritiek die hij afwees met de woorden: \"Ik wordt door hen zowat beschouwd als een vaandelvluchtige, eenvoudig omdat ik me opsluit binnenshuis en zo hard werk als maar mogelijk is.\"", 1],
+    ["Sinds september 2006 presenteert zij voor Talpa de tv-programma's \"Big Brother 6\" en \"Woef: Hoe wordt ik een beroemde hond?\"", 1],
+    ["Op 27 augustus startte \"Hoe wordt ik een New Yorkse vrouw?\"", 1],
+    ["In 2009 presenteerde ze de 4-delige serie \"Hoe wordt ik een Gooische Vrouw?\"", 1],
+    ["Het moet me van het hart dat ik de laatste tijd een trend meen waar te nemen waar ik niet blij van wordt.", 1],
+    ["Twee weken na zijn overlijden verschijnt van Groep Fosko het album 'Van iets maken wordt je blij'.", 1],
+    ["Maar blijkbaar wordt je alleen beloond voor wat je hebt beloofd en niet op wat je hebt gedaan.", 1],
+    ["De auditie kan een selectief karakter hebben: geslaagd of niet, je hebt voldoende talent of niet, of een vergelijkend karakter: je hoort bij de 15 beste kandidaten, dus wordt je toegelaten, aangezien we er maar 15 toelaten.", 1],
+    ["Als je voor een dubbeltje geboren bent, wordt je nooit een kwartje, lijkt de boodschap aan het eind van de film.", 1],
+    ["Simon Carmiggelt noteert in een van zijn cursiefjes: \"We kunnen geestig zijn in Amsterdam, daar wordt je weleens beroerd van.\"", 1],
+    ["Ook de voortdurend terugkerende vaststelling dat wikipedia voor universitair studenten en wetenschappers nooit een gezaghebbende bron zal zijn, wordt ik een beetje zat.", 1],
+    ["Dan wordt ik opgeofferd aan het ego van degene die een verkeerde beslissing heeft genomen, en dat lijkt me niet terecht.", 1],
+    ["Ik wordt gewoon het offer dat gebracht moet worden om jullie te legitimeren een jacobijns schrikbewind te vestigen.", 1],
+]
+eval_df = pd.DataFrame(eval_data)
+eval_df.columns = ["text", "labels"]
+
+
 # Preparing train data
 # Correct Dutch sentences have a '0' label
-# Sentences with a "dt" mistake for worden (word vs. wordt) have a '1' label
+# Sentences with a "dt" mistake for worden (word vs. wordt) and zenden (zend vs. zendt) have a '1' label
 train_data = [
     # zenden
     # Correct
@@ -357,117 +583,10 @@ train_data = [
 train_df = pd.DataFrame(train_data)
 train_df.columns = ["text", "labels"]
 
-# Preparing eval data
-
-eval_data = [
-    # zenden
-    # Spelling correct
-    ["Hij belooft hierbij de Heilige Geest te zenden en geeft ze de opdracht: \"Zoals de Vader Mij heeft uitgezonden, zo zend Ik jullie uit\"", 0],
-    ["Enkel Turkse staats tv zendt nog in Koerdisch uit.", 0],
-    ["Het leeuwendeel van de ontdekte neutronensterren zendt ook radiostraling uit, inclusief die in röntgen, optisch en gammastraling gedetecteerd zijn", 0],
-    ["In Openbaringen 1 schrijft Johannes het volgende: \"Hetgeen gij ziet, schrijf dat in een boek en zend het aan de zeven gemeenten.\"", 0],
-    ["RTL 4 zendt het programma in december 2019 en januari 2020 uit.", 0],
-    ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zendt.", 0],
-    ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zendt Hermóðr en Bragi om hem te begroeten.", 0],
-    ["Val binnen als de bewoners om hulp vragen, neem het land in, zend kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 0],
-    ["En mijn broer Aaron is welsprekender dan ik; zend hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 0],
-    ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zendt God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 0],
-    ["Sinds 2013 zendt Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 0],
-    ["Via de Post zend ik nog al eens een pakje.", 0],
-    ["Sinds wanneer zend jij mij berichten via email?", 0],
-    ["Waarom zend je me steeds weer het bos in?", 0],
-    ["Die combi-oven zendt zoveel straling uit dat je WiFi er plat van gaat.", 0],
-
-    # With spelling mistake
-    ["Hij belooft hierbij de Heilige Geest te zenden en geeft ze de opdracht: \"Zoals de Vader Mij heeft uitgezonden, zo zendt Ik jullie uit\"", 1],
-    ["Enkel Turkse staats tv zend nog in Koerdisch uit.", 1],
-    ["Het leeuwendeel van de ontdekte neutronensterren zend ook radiostraling uit, inclusief die in röntgen, optisch en gammastraling gedetecteerd zijn", 1],
-    ["In Openbaringen 1 schrijft Johannes het volgende: \"Hetgeen gij ziet, schrijf dat in een boek en zendt het aan de zeven gemeenten.\"", 1],
-    ["RTL 4 zend het programma in december 2019 en januari 2020 uit.", 1],
-    ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zend.", 1],
-    ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zend Hermóðr en Bragi om hem te begroeten.", 1],
-    ["Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 1],
-    ["En mijn broer Aaron is welsprekender dan ik; zendt hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 1],
-    ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zend God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 1],
-    ["Sinds 2013 zend Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 1],
-    ["Via de Post zendt ik nog al eens een pakje.", 1],
-    ["Sinds wanneer zendt jij mij berichten via email?", 1],
-    ["Waarom zendt je me steeds weer het bos in?", 1],
-    ["Die combi-oven zend zoveel straling uit dat je WiFi er plat van gaat.", 1],
-
-    # worden
-    # Spelling correct
-    ["Hoe word je gevraagd?", 0],           # [[ 5.015532  -4.553905 ]
-    ["Wat wordt je gevraagd?", 0],          #  [ 5.0018735 -4.5051813]
-    ["Wat word je opdringerig, zeg!", 0],   #  [ 4.872464  -4.421867 ]
-
-    # With spelling mistake
-    ["Hoe wordt je gevraagd?", 1],          #  [-5.3449144  4.2390695]
-    ["Wat word je gevraagd?", 1],           #  [-5.3157487  4.1024556]
-    ["Wat wordt je opdringerig, zeg!", 1],  #  [-5.112391   3.83513  ]
-
-    # Previous validations (mixed correct and mistakes)
-    ["Ik word volgend jaar ook getest.", 0],
-    ["Ik wordt helemaal naar hier gehaald.", 1],
-    ["Word ik volgend jaar ook uitgenodigd?", 0],
-    ["Wordt ik nu al opgeroepen?", 1],
-
-    ["Jij wordt volgend jaar ook getest.", 0],
-    ["Jij word helemaal naar hier gehaald.", 1],
-    ["Word jij volgend jaar ook uitgenodigd?", 0],
-    ["Wordt jij nu al opgeroepen?", 1],
-
-    ["Hij wordt volgend jaar ook getest.", 0],
-    ["Hij word helemaal naar hier gehaald.", 1],
-    ["Wordt hij volgend jaar ook uitgenodigd?", 0],
-    ["Word hij nu al opgeroepen?", 1],
-
-    ["Zij wordt volgend jaar ook getest.", 0],
-    ["Zij word helemaal naar hier gehaald.", 1],
-    ["Wordt zij volgend jaar ook uitgenodigd?", 0],
-    ["Word zij nu al opgeroepen?", 1],
-
-    # Spelling correct
-    ["In 1992 gaf de Stichting Popmuseum ook de brochure \"Hoe word je popmuzikant\" uit, met tips voor beginnende popmuzikanten.", 0],
-    ["Nou Muijz dan word je bedankt: het werk van maanden sappelen gooi jij met één muisklik weg!", 0],
-    ["Voor dat laatste werk kreeg hij kritiek van sommige Vlaams-nationalisten, kritiek die hij afwees met de woorden: \"Ik word door hen zowat beschouwd als een vaandelvluchtige, eenvoudig omdat ik me opsluit binnenshuis en zo hard werk als maar mogelijk is.\"", 0],
-    ["Sinds september 2006 presenteert zij voor Talpa de tv-programma's \"Big Brother 6\" en \"Woef: Hoe word ik een beroemde hond?\"", 0],
-    ["Op 27 augustus startte \"Hoe word ik een New Yorkse vrouw?\"", 0],
-    ["In 2009 presenteerde ze de 4-delige serie \"Hoe word ik een Gooische Vrouw?\"", 0],
-    ["Het moet me van het hart dat ik de laatste tijd een trend meen waar te nemen waar ik niet blij van word.", 0],
-    ["Twee weken na zijn overlijden verschijnt van Groep Fosko het album 'Van iets maken word je blij'.", 0],
-    ["Maar blijkbaar word je alleen beloond voor wat je hebt beloofd en niet op wat je hebt gedaan.", 0],
-    ["De auditie kan een selectief karakter hebben: geslaagd of niet, je hebt voldoende talent of niet, of een vergelijkend karakter: je hoort bij de 15 beste kandidaten, dus word je toegelaten, aangezien we er maar 15 toelaten.", 0],
-    ["Als je voor een dubbeltje geboren bent, word je nooit een kwartje, lijkt de boodschap aan het eind van de film.", 0],
-    ["Simon Carmiggelt noteert in een van zijn cursiefjes: \"We kunnen geestig zijn in Amsterdam, daar word je weleens beroerd van.\"", 0],
-    ["Ook de voortdurend terugkerende vaststelling dat wikipedia voor universitair studenten en wetenschappers nooit een gezaghebbende bron zal zijn, word ik een beetje zat.", 0],
-    ["Dan word ik opgeofferd aan het ego van degene die een verkeerde beslissing heeft genomen, en dat lijkt me niet terecht.", 0],
-    ["Ik word gewoon het offer dat gebracht moet worden om jullie te legitimeren een jacobijns schrikbewind te vestigen.", 0],
-
-    # With spelling mistake
-    ["In 1992 gaf de Stichting Popmuseum ook de brochure \"Hoe wordt je popmuzikant\" uit, met tips voor beginnende popmuzikanten.", 1],
-    ["Nou Muijz dan wordt je bedankt: het werk van maanden sappelen gooi jij met één muisklik weg!", 1],
-    ["Voor dat laatste werk kreeg hij kritiek van sommige Vlaams-nationalisten, kritiek die hij afwees met de woorden: \"Ik wordt door hen zowat beschouwd als een vaandelvluchtige, eenvoudig omdat ik me opsluit binnenshuis en zo hard werk als maar mogelijk is.\"", 1],
-    ["Sinds september 2006 presenteert zij voor Talpa de tv-programma's \"Big Brother 6\" en \"Woef: Hoe wordt ik een beroemde hond?\"", 1],
-    ["Op 27 augustus startte \"Hoe wordt ik een New Yorkse vrouw?\"", 1],
-    ["In 2009 presenteerde ze de 4-delige serie \"Hoe wordt ik een Gooische Vrouw?\"", 1],
-    ["Het moet me van het hart dat ik de laatste tijd een trend meen waar te nemen waar ik niet blij van wordt.", 1],
-    ["Twee weken na zijn overlijden verschijnt van Groep Fosko het album 'Van iets maken wordt je blij'.", 1],
-    ["Maar blijkbaar wordt je alleen beloond voor wat je hebt beloofd en niet op wat je hebt gedaan.", 1],
-    ["De auditie kan een selectief karakter hebben: geslaagd of niet, je hebt voldoende talent of niet, of een vergelijkend karakter: je hoort bij de 15 beste kandidaten, dus wordt je toegelaten, aangezien we er maar 15 toelaten.", 1],
-    ["Als je voor een dubbeltje geboren bent, wordt je nooit een kwartje, lijkt de boodschap aan het eind van de film.", 1],
-    ["Simon Carmiggelt noteert in een van zijn cursiefjes: \"We kunnen geestig zijn in Amsterdam, daar wordt je weleens beroerd van.\"", 1],
-    ["Ook de voortdurend terugkerende vaststelling dat wikipedia voor universitair studenten en wetenschappers nooit een gezaghebbende bron zal zijn, wordt ik een beetje zat.", 1],
-    ["Dan wordt ik opgeofferd aan het ego van degene die een verkeerde beslissing heeft genomen, en dat lijkt me niet terecht.", 1],
-    ["Ik wordt gewoon het offer dat gebracht moet worden om jullie te legitimeren een jacobijns schrikbewind te vestigen.", 1],
-]
-eval_df = pd.DataFrame(eval_data)
-eval_df.columns = ["text", "labels"]
-
 # Optional model configuration
 # with 10 epochs, took a few minutes to train on laptop CPU
 model_args = {
-    "num_train_epochs": 25,
+    "num_train_epochs": 15,
     "overwrite_output_dir": 1,
 }
 
@@ -486,7 +605,7 @@ result, model_outputs, wrong_predictions = model.eval_model(eval_df)
 
 print(model_outputs) # see above
 
-# See above, the single wrong prediction for "Wordt zij volgend jaar ook uitgenodigd?"
+# Print the incorrect predictions
 for wrong_prediction in wrong_predictions:
     print(wrong_prediction.text_a)
     print(wrong_prediction.label)
