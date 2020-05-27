@@ -314,6 +314,35 @@ train_data = [
     ["Zoals de meeste planetaire nevels zendt de halternevel zijn zichtbare licht voornamelijk in één enkele spectraallijn uit, 500,7 nm.", 0],
     ["Daarnaast zou hij voor allen de zend- en ontvangstapparatuur, de verrekijkers, de codekaarten, hun bewapening en hun privéspullen beheren.", 0],
 
+    ["Verder zendt het netwerk nog uit via drie televisiekanalen die niet in Telefe’s beheer zijn.", 0],
+    ["Het schip zendt signalen en bevelen uit naar de battle droids, droidekas en droid starfighters die in de buurt actief zijn.", 0],
+    ["Sinds 12 december 2016 zendt Spike dagelijks uit van 21.05 tot 5.00 uur op het kanaal van Nickelodeon.", 0],
+    ["In vergelijking met de Nederlandse versie zendt de zender niet 24 uur per dag uit, en dat terwijl het sinds 12 december 2016 in Nederland wel het geval is.", 0],
+    ["Het schip zendt een S.O.S. uit en het eerste schot van de duikboot verbrijzelt het roer.", 0],
+    ["In het budget van de zone voor 2017 wordt 620.000 euro geïnvesteerd in de aankoop van persoonlijke beschermingsmiddelen, 385.000 euro in de vernieuwing van zend- en oproepapparatuur, 2,5 miljoen euro in nieuw materieel en wagens 440.000 euro in opleidingen.", 0],
+    ["Het betreft een massive MIMO-installatie van Huawei met meerdere kleine zend- en ontvangstantennes, geplaatst op het Leidseplein door T-Mobile.", 0],
+    ["Het radiostation zendt van 5 's ochtends tot 4 uur 's middags en van 5 uur 's middags tot 10 uur 's avonds uit.", 0],
+    ["Naast de reguliere programma's zendt Omroep Helmond ook regelmatig uit vanaf locatie, als er ergens in Helmond een bijzonder evenement is.", 0],
+    ["In alle Wolf’s kan zend- en ontvangstapparatuur worden geplaatst.", 0],
+    ["Echter tijdens de Tweede Wereldoorlog heeft men nog onvoldoende vertrouwen in de apparatuur en zendt men met vluchten nog twee duiven mee.", 0],
+    ["Zend, de heilige taal van de Zoroastriërs zou van dit Sanzar afstammen.", 0],
+    ["Dit biecht zij op aan haar verloofde Wamgans, waarop deze Sofrelli tijdens de bruiloft weg zendt.", 0],
+
+    # Synthetic data, close to failing evaluations for zend
+    ["In dat boek, schrijft Jan het volgende: \"Hetgeen gij hoort, onthoud dat en zend het naar je broers.\"", 0],
+    ["Zend zo duidelijke mogelijke instructies naar alle deelnemers!", 0],
+    ["Ga er direct naartoe en zend hulp naar de getroffen zones!", 0],
+    ["Vraag het even na en zend dan direct het resultaat door.", 0],
+    ["Wanneer je bent aangekomen, zend je me dan direct een SMS?", 0],
+    ["En Hij zei: \"Zend vele groeten naar alle nieuwe leden.\"", 0],
+    ["Toen gaf ze de opdracht: \"Verzamel modern materiaal en zend het per direct naar onze partners\"", 0],
+    ["Met die puntkomma erbij is hij veel sterker dan ik; zend hem alvast mijn felicitaties!", 0],
+    ["Door die puntkomma is hij ook veel groter dan ik; zend hem een helm!", 0],
+    ["Die antenne zendt zo'n zwak signaal dat je hem nauwelijks kan ontvangen", 0],
+    ["Radio Scorpio zendt in FM op 106.0 MHz", 0],
+    ["Die ster zendt ook Gamma straling de ruimte in, maar ik ben niet zeker als dat wel kan kloppen.", 0],
+    ["Ondanks alles, zendt het toch een heel sterk signaal.", 0],
+
     # With spelling mistake
     ["Ik zendt een pakje.", 1],
     ["Ik zendt je een pakje.", 1],
@@ -361,6 +390,32 @@ train_data = [
     ["Korte tijd daarna zend de hertog een korte brief waarin hij stelt dat Bredevoort bij de graafschap Zutphen hoort en aan de voorouders van Arnold in pand is gegeven.", 1],
     ["Midland FM is de eerste en oudste streekomroep van Nederland en zend uit in de gemeenten Renswoude, Scherpenzeel, Veenendaal, Woudenberg.", 1],
     ["Zoals de meeste planetaire nevels zend de halternevel zijn zichtbare licht voornamelijk in één enkele spectraallijn uit, 500,7 nm.", 1],
+
+    ["Verder zend het netwerk nog uit via drie televisiekanalen die niet in Telefe’s beheer zijn.", 1],
+    ["Het schip zend signalen en bevelen uit naar de battle droids, droidekas en droid starfighters die in de buurt actief zijn.", 1],
+    ["Sinds 12 december 2016 zend Spike dagelijks uit van 21.05 tot 5.00 uur op het kanaal van Nickelodeon.", 1],
+    ["In vergelijking met de Nederlandse versie zend de zender niet 24 uur per dag uit, en dat terwijl het sinds 12 december 2016 in Nederland wel het geval is.", 1],
+    ["Het schip zend een S.O.S. uit en het eerste schot van de duikboot verbrijzelt het roer.", 1],
+    ["Het betreft een massive MIMO-installatie van Huawei met meerdere kleine zend- en ontvangstantennes, geplaatst op het Leidseplein door T-Mobile.", 1],
+    ["Het radiostation zend van 5 's ochtends tot 4 uur 's middags en van 5 uur 's middags tot 10 uur 's avonds uit.", 1],
+    ["Naast de reguliere programma's zend Omroep Helmond ook regelmatig uit vanaf locatie, als er ergens in Helmond een bijzonder evenement is.", 1],
+    ["Echter tijdens de Tweede Wereldoorlog heeft men nog onvoldoende vertrouwen in de apparatuur en zend men met vluchten nog twee duiven mee.", 1],
+    ["Dit biecht zij op aan haar verloofde Wamgans, waarop deze Sofrelli tijdens de bruiloft weg zend.", 1],
+
+    # Synthetic data, close to failing evaluations for zend
+    ["In dat boek, schrijft Jan het volgende: \"Hetgeen gij hoort, onthoud dat en zendt het naar je broers.\"", 1],
+    ["Zendt zo duidelijke mogelijke instructies naar alle deelnemers!", 1],
+    ["Ga er direct naartoe en zendt hulp naar de getroffen zones!", 1],
+    ["Vraag het even na en zendt dan direct het resultaat door.", 1],
+    ["Wanneer je bent aangekomen, zendt je me dan direct een SMS?", 1],
+    ["En Hij zei: \"Zendt vele groeten naar alle nieuwe leden.\"", 1],
+    ["Toen gaf ze de opdracht: \"Verzamel modern materiaal en zendt het per direct naar onze partners\"", 1],
+    ["Met die puntkomma erbij is hij veel sterker dan ik; zendt hem alvast mijn felicitaties!", 1],
+    ["Door die puntkomma is hij ook veel groter dan ik; zendt hem een helm!", 1],
+    ["Die antenne zend zo'n zwak signaal dat je hem nauwelijks kan ontvangen", 1],
+    ["Radio Scorpio zend in FM op 106.0 MHz", 1],
+    ["Die ster zend ook Gamma straling de ruimte in, maar ik ben niet zeker als dat wel kan kloppen.", 1],
+    ["Ondanks alles, zend het toch een heel sterk signaal.", 1],
 
     # worden
     # Correct
