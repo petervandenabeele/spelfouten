@@ -10,123 +10,121 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
-# RESULTS 2020-05-27 11:00
-# With only synthetic data for training the conjugation of the verb "zenden",
-# there is clearly no good validation. The training showed a very small
-# training loss, already after 5 to 10 of the training epochts (0.00xxx),
-# but validation is clearly not good yet.
+# RESULTS 2020-05-27 13:00
+# With also some data from nl.wikipedia, that was correct to have correct "dt" ending
+# for zenden, the accuracy on the validation set (validation set unchanged) improved,
+# but still far from 100% ...
 #
-# {'mcc': 0.7863570994927847, 'tp': 34, 'tn': 39, 'fp': 2, 'fn': 7, 'eval_loss': 0.430717576240237}
+# ONLY SYNTHETIC training data for "zenden"
+# => "{'mcc': 0.7863570994927847, 'tp': 34, 'tn': 39, 'fp': 2, 'fn': 7, 'eval_loss': 0.430717576240237}
+#
+# 15 epochs
+# More training examples for "zenden" (160 now), also from nl.wikipedia
+# => {'mcc': 0.8783100656536799, 'tp': 38, 'tn': 39, 'fp': 2, 'fn': 3, 'eval_loss': 0.23798761186150263}
+#
 #
 # zenden
 # Spelling correct
-# [[ 4.3828545  -4.3380537 ]
-#  [ 2.615094   -2.6443691 ]
-#  [ 1.4484475  -1.6104043 ]
-#  [ 3.9557223  -3.7132068 ]
-#  [ 4.275128   -4.166957  ]
-#  [-2.1476645   1.3048072 ]
-#  [ 1.7412554  -1.8340585 ]
-#  [ 4.527033   -4.2149734 ]
-#  [ 4.017769   -3.8175523 ]
-#  [ 2.3977308  -2.5035555 ]
-#  [-0.3568575  -0.26351702]
-#  [ 5.1319838  -4.687477  ]
-#  [ 4.924566   -4.6048837 ]
-#  [ 5.2155113  -4.7655354 ]
-#  [ 0.64577883 -1.330639  ]
+# [[ 3.982389   -4.8246384 ]
+#  [ 4.351604   -4.796036  ]
+#  [ 4.2899427  -4.813738  ]
+#  [-1.3718175   1.9201124 ]
+#  [ 4.2672873  -4.9189916 ]
+#  [ 4.1654797  -4.8302336 ]
+#  [ 3.6933055  -4.301723  ]
+#  [ 2.62353    -2.615353  ]
+#  [ 4.120921   -4.6997595 ]
+#  [ 4.205384   -4.9054575 ]
+#  [ 4.2738795  -4.919626  ]
+#  [ 4.446617   -4.8128633 ]
+#  [ 4.431728   -4.8863378 ]
+#  [ 4.360866   -4.892479  ]
+#  [-3.6020284   4.105243  ]
 #
 # Spelling mistake
-#  [-4.35742     3.6530428 ]
-#  [ 0.6628459  -0.8062303 ]
-#  [-1.3894545   0.4906438 ]
-#  [ 2.8302498  -2.6809227 ]
-#  [ 3.217443   -3.2197032 ]
-#  [-2.0391002   1.3079703 ]
-#  [ 0.49333763 -0.6354339 ]
-#  [ 0.9438919  -1.1424679 ]
-#  [-4.251321    3.5817974 ]
-#  [ 4.1832952  -3.9161367 ]
-#  [ 3.9417825  -3.9863925 ]
-#  [-5.240778    4.424496  ]
-#  [-4.9924397   4.3361545 ]
-#  [-5.3139      4.5234823 ]
-#  [-2.5441735   2.0842443 ]
+#
+#  [-3.8854444   4.700144  ]
+#  [-4.186459    4.5990143 ]
+#  [-4.1301594   4.709354  ]
+#  [ 0.5477073  -0.19249997]
+#  [-4.382003    4.815203  ]
+#  [-3.3481681   3.7836232 ]
+#  [-3.5158172   4.1378665 ]
+#  [-1.6302907   2.1379223 ]
+#  [ 3.4491475  -3.933494  ]
+#  [-0.63834995  0.8143879 ]
+#  [-4.44701     4.830124  ]
+#  [-4.233802    4.850037  ]
+#  [-4.2951155   4.8691683 ]
+#  [-4.08617     4.794501  ]
+#  [ 0.48505414 -0.252264  ]
 #
 # worden
-#
-#  [ 5.304263   -4.823975  ]
-#  [ 5.1527367  -4.6270375 ]
-#  [ 5.3113813  -4.730113  ]
-#  [-4.6385136   4.1298285 ]
-#  [-4.9923067   4.28862   ]
-#  [-5.3315253   4.480264  ]
-#
-#  [ 5.2995024  -4.9389243 ]
-#  [-5.3492317   4.4450827 ]
-#  [ 5.3108263  -4.9059563 ]
-#  [-5.320383    4.518992  ]
-#  [ 4.909932   -4.7584352 ]
-#  [-5.296947    4.1005654 ]
-#  [ 5.318614   -4.851798  ]
-#  [-5.0840044   4.4337597 ]
-#  [ 5.094594   -4.829103  ]
-#  [-5.269313    4.2423096 ]
-#  [ 4.9105043  -4.6228533 ]
-#  [-5.1245317   4.3353662 ]
-#  [ 5.028546   -4.785143  ]
-#  [-5.2632236   4.1999574 ]
-#  [ 4.867837   -4.535141  ]
-#  [-4.88985     4.2197056 ]
-#
-#  [ 5.3097043  -4.930545  ]
-#  [ 5.334338   -4.9286704 ]
-#  [ 5.2677307  -4.9247236 ]
-#  [ 5.314685   -4.931687  ]
-#  [ 5.3215537  -4.9163218 ]
-#  [ 5.3353705  -4.9187145 ]
-#  [ 5.2792797  -4.9419947 ]
-#  [ 5.2159157  -4.981403  ]
-#  [ 5.2832346  -4.8943477 ]
-#  [ 5.289963   -4.8889174 ]
-#  [ 5.292521   -4.9353256 ]
-#  [ 5.245591   -4.928262  ]
-#  [ 5.193731   -4.953878  ]
-#  [ 5.2964826  -4.9384975 ]
-#  [ 5.2907076  -4.948236  ]
-#
-#  [-5.273294    4.5436416 ]
-#  [-5.423771    4.4922004 ]
-#  [-5.3169665   4.473838  ]
-#  [-5.404071    4.4878774 ]
-#  [-5.373291    4.492902  ]
-#  [-5.386032    4.541335  ]
-#  [-5.3389893   4.5311394 ]
-#  [-5.208503    4.512285  ]
-#  [-5.343893    4.44823   ]
-#  [-5.2368765   4.4775786 ]
-#  [-5.364842    4.5068617 ]
-#  [-5.3111033   4.5610337 ]
-#  [-5.3544254   4.5073247 ]
-#  [-5.4086366   4.527601  ]
-#  [-5.3680806   4.5220013 ]]
-# Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zendt.
+#  [ 3.9363475  -4.626443  ]
+#  [ 4.318762   -4.8102665 ]
+#  [ 2.035624   -2.458388  ]
+#  [-2.4346068   2.6977901 ]
+#  [-4.334618    4.877858  ]
+#  [-4.325872    4.8108683 ]
+
+#  [ 4.3764005  -4.971792  ]
+#  [-4.4738197   4.8922815 ]
+#  [ 4.4165964  -4.940976  ]
+#  [-4.501157    4.8168855 ]
+#  [ 4.249697   -4.7606874 ]
+#  [-4.391653    4.887928  ]
+#  [ 4.3309555  -4.9111032 ]
+#  [-3.996069    4.5707145 ]
+#  [ 4.313798   -4.818244  ]
+#  [-4.405592    4.9089932 ]
+#  [ 4.346222   -4.9220524 ]
+#  [-4.3573933   4.9117517 ]
+#  [ 4.2636833  -4.7734976 ]
+#  [-4.39872     4.91176   ]
+#  [ 4.3591824  -4.859398  ]
+#  [-4.3598003   4.892846  ]
+
+#  [ 4.372859   -4.768337  ]
+#  [ 4.271667   -4.948238  ]
+#  [ 4.2251744  -4.863228  ]
+#  [ 4.3631864  -4.981392  ]
+#  [ 4.302269   -4.844692  ]
+#  [ 4.2680683  -4.940604  ]
+#  [ 4.1768765  -4.7938213 ]
+#  [ 4.191737   -4.719339  ]
+#  [ 3.8719616  -4.8674917 ]
+#  [ 4.0748115  -4.985894  ]
+#  [ 4.1890287  -4.891448  ]
+#  [ 4.210712   -4.8640013 ]
+#  [ 4.2925024  -4.8705626 ]
+#  [ 4.303931   -4.860304  ]
+#  [ 4.278967   -4.888571  ]
+
+#  [-4.302467    4.831578  ]
+#  [-4.4311275   4.883393  ]
+#  [-4.4985847   4.8600273 ]
+#  [-4.484155    4.8701944 ]
+#  [-4.492827    4.8655353 ]
+#  [-4.495673    4.8954353 ]
+#  [-4.3965883   4.869439  ]
+#  [-4.3987427   4.848814  ]
+#  [-4.4347363   4.8404922 ]
+#  [-4.4542527   4.7502246 ]
+#  [-4.3365664   4.857889  ]
+#  [-4.3960943   4.796603  ]
+#  [-4.518242    4.8243647 ]
+#  [-4.4968543   4.8610225 ]
+#  [-4.479931    4.8089185 ]]
+
+# In Openbaringen 1 schrijft Johannes het volgende: "Hetgeen gij ziet, schrijf dat in een boek en zend het aan de zeven gemeenten."
 # 0
-# Sinds 2013 zendt Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.
+# Die combi-oven zendt zoveel straling uit dat je WiFi er plat van gaat.
 # 0
-# Enkel Turkse staats tv zend nog in Koerdisch uit.
-# 1
 # In Openbaringen 1 schrijft Johannes het volgende: "Hetgeen gij ziet, schrijf dat in een boek en zendt het aan de zeven gemeenten."
 # 1
-# RTL 4 zend het programma in december 2019 en januari 2020 uit.
+# En mijn broer Aaron is welsprekender dan ik; zendt hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.
 # 1
-# En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zend Hermóðr en Bragi om hem te begroeten.
-# 1
-# Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied of de vorst moet er zelf gaan wonen.
-# 1
-# In een joodse pseudepigrafische tekst, het Testament van Abraham, zend God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.
-# 1
-# Sinds 2013 zend Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.
+# Die combi-oven zend zoveel straling uit dat je WiFi er plat van gaat.
 # 1
 
 # Preparing eval data
@@ -144,6 +142,7 @@ eval_data = [
     ["En mijn broer Aaron is welsprekender dan ik; zend hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 0],
     ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zendt God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 0],
     ["Sinds 2013 zendt Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 0],
+
     ["Via de Post zend ik nog al eens een pakje.", 0],
     ["Sinds wanneer zend jij mij berichten via email?", 0],
     ["Waarom zend je me steeds weer het bos in?", 0],
@@ -161,6 +160,7 @@ eval_data = [
     ["En mijn broer Aaron is welsprekender dan ik; zendt hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 1],
     ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zend God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 1],
     ["Sinds 2013 zend Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 1],
+
     ["Via de Post zendt ik nog al eens een pakje.", 1],
     ["Sinds wanneer zendt jij mij berichten via email?", 1],
     ["Waarom zendt je me steeds weer het bos in?", 1],
@@ -241,7 +241,7 @@ eval_df.columns = ["text", "labels"]
 # Sentences with a "dt" mistake for worden (word vs. wordt) and zenden (zend vs. zendt) have a '1' label
 train_data = [
     # zenden
-    # Correct
+    # Correct spelling; synthetic
     ["Ik zend een pakje.", 0],
     ["Ik zend je een pakje.", 0],
     ["Ik zend u een heel mooie trui.", 0],
@@ -260,6 +260,59 @@ train_data = [
     ["Welke baas zendt je nu helemaal naar London voor 1 klant?", 0],
     ["Hoe laat zendt u de de nieuwe versie door?", 0],
     ["Zendt u dit volgende week al uit?", 0],
+
+    # Correct spelling; from nl.wikipedia (in _most_ cases, I needed to correct "zend" to "zendt" for 3rd person singular usage, except citations from the bible)
+    ["Een gebed van Apollonius van Tyana uit ongeveer het jaar 23 AD: \"O, God van de Zon, zend me zover rond de wereld als goed is voor mij en jou, en dat ik goede mensen mag ontmoeten, maar nooit de slechte leer kennen, noch zij mij.", 0],
+    ["Voor het ontvangen van omroepsignalen wordt de kenmerkende zend- en ontvangstmast van Naaldwijk gebouwd.", 0],
+    ["Met de wet van behoud van energie geldt dan ook dat met 100 W aan de zend-trap nog steeds minder dan 100 W door de antenne uitgestraald zal worden.", 0],
+    ["Deze fabriek richtte zich in eerste instantie op de productie van zend- en ontvanginstallaties voor schepen en vliegtuigen.", 0],
+    ["Met zijn zend- en ontvangschoen roept hij Jerom en professor Barabas op en zij verslaan de tempelwachters in de doolhof.", 0],
+    ["Het woord radio wordt eveneens gebruikt als afkorting voor radio-omroep, radio-ontvanger en zend- en ontvangapparatuur.", 0],
+    ["Sponsor Motorola is een Amerikaans elektronicabedrijf en het experimenteerde als eerste met het gebruik van zend- en ontvangstapparatuur in de koers.", 0],
+    ["De toren is ontworpen als onderkomen voor omroepzenders en als zend- en ontvangstation voor PTT/KPN straalverbindingen voor telefonie.", 0],
+    ["En zend daarna een evaluatieteam in als iedereen is afgekoeld.", 0],
+    ["Via zijn eigen zend-installatie zond hij berichten uit naar alle hoeken van de wereld; Amerika, Groenland, Indië en Australië, waarbij hij zich vlot van verschillende vreemde talen bediende.", 0],
+    ["Het blad bevat naast verenigingsnieuws ook technische artikelen over zend- en ontvangtechnieken.", 0],
+    ["Ten tijde van de kabel van 1866 waren zowel de kabelfabricage als de zend- en ontvangstapparatuur aanzienlijk verbeterd.", 0],
+    ["Hiermee neemt de vaste autotelefoon de telefoonfunctie van de mobiele telefoon over: De zend-ontvang functie van de mobiele telefoon wordt in een stand-by modus gezet.", 0],
+    ["Het voordeel van deze rSAP autotelefoons is een veel betere zend- en ontvangstkwaliteit.", 0],
+    ["Ook de zend- en ontvangstkwaliteit is beter bij rsap.", 0],
+    ["Sinds 2013 zendt ook 2BE de serie uit.", 0],
+    ["In december 2010 zendt televisie- en internet aanbieder Ziggo een tweetal nieuwe 2 Meter Sessies uitzendingen uit op haar digitale televisiekanaal.", 0],
+    ["Dat moge blijken uit het feit dat voor zowel zend- als ontvangstantenne in de UHF-omroepband kanalen 21-69 vrijwel altijd een universeel antennetype gebruikt wordt.", 0],
+    ["'s Morgens zendt het kanaal de programmering van 24 h uit, met nieuws en achtergronden.", 0],
+    ["Sinds 15 december 2008 zendt de zender uit tussen 6 en 20.15 uur op hetzelfde kanaal als Comedy Central Duitsland, en dit ook via de satelliet.", 0],
+    ["Hierbij zendt de gebruiker alleen mentale energie naar zijn opponent, die daar wel door wordt overheerst en niet meer uit eigen wil kan handelen zolang deze Jutsu bezig is.", 0],
+    ["Sinds 2017 zendt Veronica kwalificatiewedstrijden van het Nederlands vrouwenvoetbalelftal uit.", 0],
+    ["De zend- en ontvangstinstallaties daarvoor waren echter groot en moeilijk verplaatsbaar.", 0],
+    ["Zie, Ik zend u de profeet Elia, voordat de grote en geduchte dag van Jahweh komt.", 0],
+    ["Het woord radio wordt eveneens gebruikt als afkorting voor radio-omroep, radio-ontvanger en zend- en ontvangapparatuur.", 0],
+    ["Behalve om rechtstreeks tussen twee zend-ontvangers met elkaar te communiceren, is D-star uitermate geschikt om ook via een D-star repeater of een D-star hotspot te communiceren.", 0],
+    ["Een Repeater is een zend-ontvanger welke onbemand het ontvangen radiosignaal op een andere frequentie her-uitzendt.", 0],
+    ["BBC Radio 1 richt zich vooral op de doelgroep 15 tot 29 jaar, en zendt vooral pop, elektronische, alternatieve en rock muziek uit.", 0],
+    ["Een antenne-array is een samenstel van een aantal zend- of ontvangstantennes, om voor een bepaalde frequentie een optimale energieoverdracht in  één of meer richtingen te bewerkstelligen.", 0],
+    ["Momenteel zendt Boomerang de tekenfilm uit, geheel opnieuw ingesproken, maar met dezelfde stemacteurs.", 0],
+    ["In het midden- en noorden van Schotland zendt STV uit, in Noord-Ierland zendt UTV uit.", 0],
+    ["Dit onderdeel zend een schokgolf uit waarmee je zwakke muren kan openbreken.", 0],
+    ["In 1917 stonden er al tijdelijke zend- en ontvangststations voor draadloze telegrafie op de lange golf op de hoogvlakte Malabar nabij Bandoeng op het Nederlands-Indische eiland Java, voor contact met het moederland.", 0],
+    ["Deze zender zendt uit in het Engels en is gericht op de islam.", 0],
+    ["Het kanaal zendt dagelijks uit vanuit zijn studio's op Stamford Bridge.", 0],
+    ["Namelijk door zowel aan de zend- als aan de ontvangstzijde kathodestraalbuizen te gebruiken.", 0],
+    ["In de daarop volgende jaren breidde hij zijn draadloze netwerk uit door wereldwijd diverse zend- en ontvangststations te bouwen.", 0],
+    ["Tijdens een vuurgevecht met de Duitsers waren ze hun uitrusting, wapens en radio zend-ontvanger kwijt geraakt.", 0],
+    ["Wanneer Big Brother wordt uitgezonden op Channel 4, zendt E4 veel extra programma's uit rond de serie.", 0],
+    ["De Church of Scotland besluit hen te gaan sponsoren en zendt het echtpaar naar Chamba, een leprakolonie aan de voet van de Himalaya.", 0],
+    ["De dieven schrikken en rennen weg en Salam pakt het geld en zendt een gedeelte naar zijn meester.", 0],
+    ["Marinus Vader ontving inmiddels een zend-ontvanger via route Zwaantje.", 0],
+    ["Helaas zendt geen 1 kanaal constant uit 70% van de tijd andere zaken.", 0],
+    ["De zender zendt 24 uur per dag programma's uit.", 0],
+    ["Aanschouw, Heer, de droefheid van Uw volk, en zend ons degene, die U zenden wil.", 0],
+    ["Wanneer in februari 1799 nog geen antwoord uit Nederland is gekomen, zendt men een tweede verzoek, vergezeld van een bedrag van f 1100,--.", 0],
+    ["Sindsdien zendt het radiostation 24 uur per dag, zeven dagen in de week uit.", 0],
+    ["Korte tijd daarna zendt de hertog een korte brief waarin hij stelt dat Bredevoort bij de graafschap Zutphen hoort en aan de voorouders van Arnold in pand is gegeven.", 0],
+    ["Midland FM is de eerste en oudste streekomroep van Nederland en zendt uit in de gemeenten Renswoude, Scherpenzeel, Veenendaal, Woudenberg.", 0],
+    ["Zoals de meeste planetaire nevels zendt de halternevel zijn zichtbare licht voornamelijk in één enkele spectraallijn uit, 500,7 nm.", 0],
+    ["Daarnaast zou hij voor allen de zend- en ontvangstapparatuur, de verrekijkers, de codekaarten, hun bewapening en hun privéspullen beheren.", 0],
 
     # With spelling mistake
     ["Ik zendt een pakje.", 1],
@@ -280,6 +333,34 @@ train_data = [
     ["Welke baas zend je nu helemaal naar London voor 1 klant?", 1],
     ["Hoe laat zend u de de nieuwe versie door?", 1],
     ["Zend u dit volgende week al uit?", 1],
+
+    # With spelling mistake; from nl.wikipedia (corrected in many places)
+    ["Een gebed van Apollonius van Tyana uit ongeveer het jaar 23 AD: \"O, God van de Zon, zendt me zover rond de wereld als goed is voor mij en jou, en dat ik goede mensen mag ontmoeten, maar nooit de slechte leer kennen, noch zij mij.", 1],
+    ["En zendt daarna een evaluatieteam in als iedereen is afgekoeld.", 1],
+    ["Sinds 2013 zend ook 2BE de serie uit.", 1],
+    ["In december 2010 zend televisie- en internet aanbieder Ziggo een tweetal nieuwe 2 Meter Sessies uitzendingen uit op haar digitale televisiekanaal.", 1],
+    ["'s Morgens zend het kanaal de programmering van 24 h uit, met nieuws en achtergronden.", 1],
+    ["Sinds 15 december 2008 zend de zender uit tussen 6 en 20.15 uur op hetzelfde kanaal als Comedy Central Duitsland, en dit ook via de satelliet.", 1],
+    ["Hierbij zend de gebruiker alleen mentale energie naar zijn opponent, die daar wel door wordt overheerst en niet meer uit eigen wil kan handelen zolang deze Jutsu bezig is.", 1],
+    ["Sinds 2017 zend Veronica kwalificatiewedstrijden van het Nederlands vrouwenvoetbalelftal uit.", 1],
+    ["Zie, Ik zendt u de profeet Elia, voordat de grote en geduchte dag van Jahweh komt.", 1],
+    ["BBC Radio 1 richt zich vooral op de doelgroep 15 tot 29 jaar, en zend vooral pop, elektronische, alternatieve en rock muziek uit.", 1],
+    ["Momenteel zend Boomerang de tekenfilm uit, geheel opnieuw ingesproken, maar met dezelfde stemacteurs.", 1],
+    ["In het midden- en noorden van Schotland zend STV uit, in Noord-Ierland zend UTV uit.", 1],
+    ["Dit onderdeel zendt een schokgolf uit waarmee je zwakke muren kan openbreken.", 1],
+    ["Deze zender zend uit in het Engels en is gericht op de islam.", 1],
+    ["Het kanaal zend dagelijks uit vanuit zijn studio's op Stamford Bridge.", 1],
+    ["Wanneer Big Brother wordt uitgezonden op Channel 4, zend E4 veel extra programma's uit rond de serie.", 1],
+    ["De Church of Scotland besluit hen te gaan sponsoren en zend het echtpaar naar Chamba, een leprakolonie aan de voet van de Himalaya.", 1],
+    ["De dieven schrikken en rennen weg en Salam pakt het geld en zend een gedeelte naar zijn meester.", 1],
+    ["Helaas zend geen 1 kanaal constant uit 70% van de tijd andere zaken.", 1],
+    ["De zender zend 24 uur per dag programma's uit.", 1],
+    ["Aanschouw, Heer, de droefheid van Uw volk, en zendt ons degene, die U zenden wil.", 1],
+    ["Wanneer in februari 1799 nog geen antwoord uit Nederland is gekomen, zend men een tweede verzoek, vergezeld van een bedrag van f 1100,--.", 1],
+    ["Sindsdien zend het radiostation 24 uur per dag, zeven dagen in de week uit.", 1],
+    ["Korte tijd daarna zend de hertog een korte brief waarin hij stelt dat Bredevoort bij de graafschap Zutphen hoort en aan de voorouders van Arnold in pand is gegeven.", 1],
+    ["Midland FM is de eerste en oudste streekomroep van Nederland en zend uit in de gemeenten Renswoude, Scherpenzeel, Veenendaal, Woudenberg.", 1],
+    ["Zoals de meeste planetaire nevels zend de halternevel zijn zichtbare licht voornamelijk in één enkele spectraallijn uit, 500,7 nm.", 1],
 
     # worden
     # Correct
