@@ -19,6 +19,8 @@ from [BERTje](https://github.com/wietsedv/bertje).
 
 ## Add more training and validation data
 
+### Worden
+
 This is *only* for the detection of "ik word, word ik, jij wordt, word jij, (hij/zij) wordt, wordt (hij/zij)".
 
 With trainging data of approx.
@@ -39,3 +41,23 @@ be better on this small training set for more then 10 epoch's or maybe we would 
 
 I presume a large part of the accuracy is due to the use of the existing [BERTje](https://github.com/wietsedv/bertje) model.
 We are only training 1 final classification layer here.
+
+### Zenden
+
+Testing for "zenden" (zend vs. zendt) without dedicated training examples for zenden
+resulted in seemingly random results.
+
+Adding a large number of synthetic and examples from nl.wikipedia got a better accuracy,
+approx. 90% but still unable to reach "exact" 100% accuracy (even if all cases are 100%
+clear for a human reader). Added some synthetic cases specifically targeted at the failing
+cases for zenden (mainly imperative usage in bible texts). With these synthetic examples,
+the accuracy for "zenden" got better (but not 100%), but some of the validations for
+"worden" that where very stable, started to become unstable again ...
+
+The best accuracy up to now, with "worden" (word vs. wordt) and "zenden" (zend vs. zendt)
+combined is:
+
+`# {'mcc': 0.9271050693011065, 'tp': 39, 'tn': 40, 'fp': 1, 'fn': 2, 'eval_loss': 0.18659917498536577}`
+
+The training was reaching a loss of like 0.001 after 10 or 15 epochs. But this was not
+resulting in a similar drop in the eval_loss. The reason for this is not clear.
