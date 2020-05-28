@@ -8,6 +8,11 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
+# EXPERIMENT 2020-05-28 `17:15
+#
+# Add some explicit synthetic training data for vinden en lopen
+
+
 # RESULTS 2020-05-28 13:17
 #
 # RoBERTa  (starting from RobBERT)
@@ -782,7 +787,61 @@ train_data = [
     ["De Engelse uitspraak van het woord lijkt sterk op de uitspraak van abbey wordt.", 1],
     ["In februari 2010 baarde Expreszo opzien met de spijbelprotestactie Daar wordt ik nou ziek van die gericht was tegen de zogenaamde 'enkele-feitconstructie'.", 1],
     ["In Marine Mania wordt je ondergedompeld in de onderwaterwereld.", 1],
+
+    # vinden and lopen
+    # Correct spelling
+    ["Ik vind dit toch niet zo super.", 0],
+    ["Wat vind jij van al zijn geleuter?", 0],
+    ["Hoe vind ik best de volgende stap?", 0],
+    ["Het is toch best erg dat hij dat nu vindt.", 0],
+    ["Hoe zwaar vindt hij die tegenslag?", 0],
+
+    ["Ik loop er niet zo snel voorbij.", 0],
+    ["Loop jij ook zo rustig?", 0],
+    ["Je loopt daar makkelijk tegenaan.", 0],
+    ["Jij loopt weer helemaal naar achter?", 0],
+    ["En daarom loopt hij er niet recht naartoe.", 0],
+
+    # With spelling mistake
+    ["Ik vindt dit toch niet zo super.", 1],
+    ["Wat vindt jij van al zijn geleuter?", 1],
+    ["Hoe vindt ik best de volgende stap?", 1],
+    ["Het is toch best erg dat hij dat nu vind.", 0],
+    ["Hoe zwaar vind hij die tegenslag?", 1],
+
+    ["Ik loopt er niet zo snel voorbij.", 1],
+    ["Loopt jij ook zo rustig?", 1],
+    ["Je loop daar makkelijk tegenaan.", 1],
+    ["Jij loop weer helemaal naar achter?", 1],
+    ["En daarom loop hij er niet recht naartoe.", 1],
+
+    # Correct spelling
+    ["Ik vind dit wel leuk, eigenlijk.", 0],
+    ["Wat vind jij van al dat gedoe?", 0],
+    ["Hoe vind ik he snelste de uitgang?", 0],
+    ["Het is toch heftig dat jij dit hier vindt.", 0],
+    ["Hoe zwaar vindt hij die tegenslag?", 0],
+
+    ["Ik loop er niet zo snel voorbij.", 0],
+    ["Loop jij even naar de bakker?", 0],
+    ["Je loopt nu een pak vlotter dan vroeger.", 0],
+    ["Jij loopt toch niet echt met die schoenen?", 0],
+    ["En waarom loopt hij er nu niet direct heen?", 0],
+
+    # With spelling mistake
+    ["Ik vind dit wel leuk, eigenlijk.", 1],
+    ["Wat vindt jij van al dat gedoe?", 1],
+    ["Hoe vindt ik he snelste de uitgang?", 1],
+    ["Het is toch heftig dat jij dit hier vind.", 1],
+    ["Hoe zwaar vind hij die tegenslag?", 1],
+
+    ["Ik loopt er niet zo snel voorbij.", 1],
+    ["Loopt jij even naar de bakker?", 1],
+    ["Je loop nu een pak vlotter dan vroeger.", 1],
+    ["Jij loop toch niet echt met die schoenen?", 1],
+    ["En waarom loop hij er nu niet direct heen?", 1],
 ]
+
 train_df = pd.DataFrame(train_data)
 train_df.columns = ["text", "labels"]
 
