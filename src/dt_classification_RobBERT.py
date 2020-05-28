@@ -8,13 +8,17 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
+# EXPERIMENT 2020-05-28 22:40
+#
+# Add validations for vinden en lopen and add some more sentences in training set
+
 # RESULTS 2020-05-28 18:28 (locally saved in RoBERTa-003)
 #
 # Add some explicit synthetic training data for `vinden` en `lopen`
 #
 # This added 1 "regression", where one case of "zenden" in the imperative form.
 # Looks like "imperative" is more difficult to detect.
-
+#
 # INFO:simpletransformers.classification.classification_model: Training of roberta model complete. Saved to outputs/RoBERTa.
 # INFO:simpletransformers.classification.classification_model:{'mcc': 0.9759000729485332, 'tp': 40, 'tn': 41, 'fp': 0, 'fn': 1, 'eval_loss': 0.06506455917075403}
 # [[ 4.5127707 -5.189252 ]
@@ -386,6 +390,33 @@ eval_data = [
     ["Ook de voortdurend terugkerende vaststelling dat wikipedia voor universitair studenten en wetenschappers nooit een gezaghebbende bron zal zijn, wordt ik een beetje zat.", 1],
     ["Dan wordt ik opgeofferd aan het ego van degene die een verkeerde beslissing heeft genomen, en dat lijkt me niet terecht.", 1],
     ["Ik wordt gewoon het offer dat gebracht moet worden om jullie te legitimeren een jacobijns schrikbewind te vestigen.", 1],
+
+    # Vinden and lopen
+    # Spelling correct
+    ["Ik vind dit toch niet zo mooi.", 0],
+    ["Wat vind jij van al die aandacht?", 0],
+    ["Hoe vind ik nu de ingang?", 0],
+    ["Het is toch erg dat hij dat niet vindt.", 0],
+    ["Hoe zwaar vindt hij de opleiding?", 0],
+
+    ["Ik loop er zo maar voorbij.", 0],
+    ["Loop jij ook zo snel?", 0],
+    ["Je loopt daar beter niet telkens over.", 0],
+    ["Jij loopt echt helemaal naar zee?", 0],
+    ["En daarom loopt hij er met een grote bocht omheen.", 0],
+
+    # With spelling mistake
+    ["Ik vindt dit toch niet zo mooi.", 1],
+    ["Wat vindt jij van al die aandacht?", 1],
+    ["Hoe vindt ik nu de ingang?", 1],
+    ["Het is toch erg dat hij dat niet vind.", 1], # Incorrectly evaluated to "0"
+    ["Hoe zwaar vind hij de opleiding?", 1],
+
+    ["Ik loopt er zo maar voorbij.", 1],
+    ["Loopt jij ook zo snel?", 1],
+    ["Je loop daar beter niet telkens over.", 1],
+    ["Jij loop echt helemaal naar zee?", 1],
+    ["En daarom loop hij er met een grote bocht omheen.", 1],
 ]
 eval_df = pd.DataFrame(eval_data)
 eval_df.columns = ["text", "labels"]
@@ -931,6 +962,43 @@ train_data = [
     ["Je loop nu een pak vlotter dan vroeger.", 1],
     ["Jij loop toch niet echt met die schoenen?", 1],
     ["En waarom loop hij er nu niet direct heen?", 1],
+
+    # More sentences from nl.wikipedia
+    # Correct spelling
+    ["Deze vorm van veehouderij wordt nog steeds beoefend in delen van Beieren, Oostenrijk, Slovenië, Italië en Zwitserland.", 0],
+    ["De Sloveense alpinistenbond onderhoudt ruim 150 berghutten.", 0],
+    ["De autosnelweg R1 vormt de Ring rond Antwerpen en verbindt de A1/E19, de A12, de A21/E34, de A13/E313, de A1/E19, de A12 , e A14/E17 en de E34 met elkaar.", 0],
+    ["De VOC hoopte dat door deze reis dit onbekende continent voor de handel geopend en vervolgens geëxploiteerd zou kunnen worden.", 0],
+    ["Dit monument werd na een opknapbeurt in 1992 door koningin Beatrix tijdens een staatsbezoek aan Nieuw-Zeeland opnieuw onthuld.", 0],
+    ["Een dag later meldde uitgeverij De Arbeiderspers dat dit niet klopte, en dat een citaat uit zijn verband getrokken was.", 0],
+    ["Een acteur is iemand die een personage uitbeeldt in een verhaal of rollenspel.", 0],
+    ["Iemand als Sylvester Stallone wordt vaak gecast in stoere rollen, terwijl Dustin Hoffman meestal comedy's speelt.", 0],
+    ["Over wat acteren precies is en hoe het beste resultaat wordt bereikt, wordt verschillend gedacht.", 0],
+    ["De commissie maakte op 2 juni 2008 haar rapport bekend.", 0],
+    ["Houd hier dus geen pleidooien voor een bepaald standpunt, maar verwijs beknopt naar een overlegpagina.", 0],
+    ["Stapelverhaaltjes beginnen en eindigen met hetzelfde zinnetje en variëren daarop zoals in Geert De Kockeres 'Houd de dief'.", 0],
+    ["Suggestie: houd deze pagina in een apart venster bij de hand tijdens het schrijven van teksten.", 0],
+    ["Bouw geen torenhoge flat van twintig verdiepingen, maar houd de structuur zo plat en overzichtelijk mogelijk.", 0],
+    ["Als je een hekel hebt aan regels en wat daarop lijkt, houd dan hier op met lezen, en ga je eigen, vrije gang.", 0],
+    ["Stel je daarbij altijd de vraag wat jouw website voor meerwaarde heeft voor een link in een encyclopedisch artikel en houd je aan de hierboven omschreven algemene richtlijnen.", 0],
+
+    # With spelling mistake
+    ["Deze vorm van veehouderij word nog steeds beoefend in delen van Beieren, Oostenrijk, Slovenië, Italië en Zwitserland.", 1],
+    ["De Sloveense alpinistenbond onderhoud ruim 150 berghutten.", 1],
+    ["De autosnelweg R1 vormt de Ring rond Antwerpen en verbind de A1/E19, de A12, de A21/E34, de A13/E313, de A1/E19, de A12 , e A14/E17 en de E34 met elkaar.", 1],
+    ["De VOC hoopte dat door deze reis dit onbekende continent voor de handel geopent en vervolgens geëxploiteerd zou kunnen worden.", 1],
+    ["Dit monument werd na een opknapbeurt in 1992 door koningin Beatrix tijdens een staatsbezoek aan Nieuw-Zeeland opnieuw onthult.", 1],
+    ["Een dag later melde uitgeverij De Arbeiderspers dat dit niet klopte, en dat een citaat uit zijn verband getrokken was.", 1],
+    ["Een acteur is iemand die een personage uitbeeld in een verhaal of rollenspel.", 1],
+    ["Iemand als Sylvester Stallone word vaak gecast in stoere rollen, terwijl Dustin Hoffman meestal comedy's speelt.", 1],
+    ["Over wat acteren precies is en hoe het beste resultaat word bereikt, wordt verschillend gedacht.", 1],
+    ["De commissie maakte op 2 juni 2008 haar rapport bekent.", 1],
+    ["Houdt hier dus geen pleidooien voor een bepaald standpunt, maar verwijs beknopt naar een overlegpagina.", 1],
+    ["Stapelverhaaltjes beginnen en eindigen met hetzelfde zinnetje en variëren daarop zoals in Geert De Kockeres 'Houdt de dief'.", 1],
+    ["Suggestie: houdt deze pagina in een apart venster bij de hand tijdens het schrijven van teksten.", 1],
+    ["Bouw geen torenhoge flat van twintig verdiepingen, maar houdt de structuur zo plat en overzichtelijk mogelijk.", 1],
+    ["Als je een hekel hebt aan regels en wat daarop lijkt, houdt dan hier op met lezen, en ga je eigen, vrije gang.", 1],
+    ["Stel je daarbij altijd de vraag wat jouw website voor meerwaarde heeft voor een link in een encyclopedisch artikel en houdt je aan de hierboven omschreven algemene richtlijnen.", 1],
 ]
 
 train_df = pd.DataFrame(train_data)
@@ -940,7 +1008,7 @@ train_df.columns = ["text", "labels"]
 # with 20 epochs, takes 60 minutes on laptop CPU
 model_args = {
     "num_train_epochs": 20,
-    "overwrite_output_dir": 1,
+    "overwrite_output_dir": 0, # we are moving the dir to a named dir now
     "output_dir": "outputs/RoBERTa"
 }
 
