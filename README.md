@@ -71,8 +71,8 @@ starting from the Dutch language `RobBERT` model.
 Very interesting findings:
 * the first try converged (locally saved as `outputs/RoBERTa-001`)
 * the version of the model yields validation accuracy of 100% see [results](https://gitlab.com/spelfouten/dutch-simpletransformers/-/blob/8e7b92b782dafc63f730ac2b756602404c7c5e47/src/dt_classification_RobBERT.py#L18-105)
-* and very interestingly, this model gets a 95% accuracy on a short test set evaluating _non-trained_ verbs (`vinden` and `lopen`); \
-  See bottom cell of this [notebook](https://gitlab.com/spelfouten/dutch-simpletransformers/-/blob/8e7b92b782dafc63f730ac2b756602404c7c5e47/experiments.ipynb)
+* and very interestingly, this model gets a 95% accuracy on a short test set evaluating _non-trained_ verbs  \
+ (`vinden` and `lopen`); See bottom cell of this [notebook](https://gitlab.com/spelfouten/dutch-simpletransformers/-/blob/8e7b92b782dafc63f730ac2b756602404c7c5e47/experiments.ipynb)
 * the second try to train the model did _not_ converge in 15 epochs \
   (I never saw this with BERT, the training always converged)
 * the third try is converging, validation results are TBD
