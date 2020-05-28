@@ -62,6 +62,26 @@ combined is:
 The training was reaching a loss of like 0.001 after 10 or 15 epochs. But this was not
 resulting in a similar drop in the eval_loss. The reason for this is not clear.
 
+This result for BERT (BERTje) not reaching 100% accuracy on pre-trained verbs (`worden` and `zenden`),
+was confirmed one more time on 2020-05-28 16:14, result in BERT-001 directory. Now with 20 epochs:
+
+`{'mcc': 0.9523532664857335, 'tp': 39, 'tn': 41, 'fp': 0, 'fn': 2, 'eval_loss': 0.14575826386995192}`
+
+Also, testing manually this model on untrained verbs `vinden` en `lopen` (last cell of the experiments.ipynb
+of this commit, resulted in:
+
+```
+# Expected           [0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1]
+# Actual RoBERTa-001 [0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 1 1 1 1 1]
+# Actual RoBERTa-002 [0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 1 0 1 1 1]
+# Actual    BERT-001 [0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 1 1 1 0 0 1 1 0 1 0]
+```
+
+4 out of 10 "actual positives" are false negatives (this is for _untrained_ verbs !).
+
+(For RoBERTa, one time 1 fn and one time 2 fn, out of these 10 actual positives).
+
+
 ## Trying RoBERTa (starting from RobBERT)
 
 Since I failed to reach 100% validation accuracy with the BERT based model for `worden` en `zenden`, \

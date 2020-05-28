@@ -1,6 +1,6 @@
 # Run this with
 #
-# export CUDA_VISIBLE_DEVICES= ;  python ./src/binary_classification_BERTje.py
+# python ./src/binary_classification_BERTje.py
 
 from simpletransformers.classification import ClassificationModel
 import pandas as pd
@@ -9,6 +9,102 @@ import logging
 logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
+
+# RESULTS 2020-05-28 16:14
+#
+# Based on BERT with BERTje
+#
+# Repeating the test below with exactly the same training and validation data,
+# but 20 epochs of training (instead of 15)
+
+# INFO:simpletransformers.classification.classification_model: Training of bert model complete. Saved to outputs/BERT.
+# {'mcc': 0.9523532664857335, 'tp': 39, 'tn': 41, 'fp': 0, 'fn': 2, 'eval_loss': 0.14575826386995192}
+# [[ 4.4719124 -4.337855 ]
+#  [ 4.760358  -4.9856186]
+#  [ 4.807799  -5.0268464]
+#  [ 4.1250367 -4.142188 ]
+#  [ 4.8712068 -4.8955936]
+#  [ 4.6727085 -5.1596866]
+#  [ 4.623204  -4.819953 ]
+#  [ 1.3711426 -1.6566896]
+#  [ 4.6552286 -4.7587204]
+#  [ 4.8747373 -5.1448483]
+#  [ 4.8292027 -5.0940104]
+#  [ 4.568279  -4.5976276]
+#  [ 4.7059445 -4.82048  ]
+#  [ 4.8678265 -4.7941074]
+#  [ 3.010136  -3.5858884]
+#  [-5.212846   4.860977 ]
+#  [-4.925946   4.924151 ]
+#  [-4.78678    4.655115 ]
+#  [-5.107603   4.849764 ]
+#  [-4.9978647  4.978163 ]
+#  [ 2.7314315 -3.3559709]
+#  [ 3.2749505 -3.4076872]
+#  [-5.123904   4.799205 ]
+#  [-5.0472493  4.5444627]
+#  [-5.1433163  4.839225 ]
+#  [-4.928458   4.974028 ]
+#  [-5.3350706  4.995612 ]
+#  [-5.219138   5.0044355]
+#  [-5.2793007  5.0165477]
+#  [-4.6012692  4.535858 ]
+#  [ 4.791087  -4.7208214]
+#  [ 4.7337914 -4.9213543]
+#  [ 4.917753  -4.9136114]
+#  [-4.9000816  4.5448933]
+#  [-5.179065   4.9842157]
+#  [-5.255392   4.8809605]
+#  [ 4.7824945 -5.155559 ]
+#  [-5.339326   4.9562635]
+#  [ 4.6728935 -4.8118105]
+#  [-5.353041   4.958583 ]
+#  [ 4.662512  -4.9812126]
+#  [-5.3010616  4.960001 ]
+#  [ 4.921362  -5.027343 ]
+#  [-4.7473664  4.5674   ]
+#  [ 4.69906   -5.067064 ]
+#  [-5.318551   4.974898 ]
+#  [ 4.938882  -5.0073214]
+#  [-5.1783657  4.971534 ]
+#  [ 4.714677  -4.9764056]
+#  [-5.325532   4.9640684]
+#  [ 4.911276  -4.985539 ]
+#  [-5.15807    4.93027  ]
+#  [ 4.848833  -4.957579 ]
+#  [ 4.943941  -4.9561977]
+#  [ 4.836777  -4.992219 ]
+#  [ 4.884124  -5.0507193]
+#  [ 4.9335628 -5.0385385]
+#  [ 4.839588  -5.050753 ]
+#  [ 4.8491554 -4.955046 ]
+#  [ 4.7739124 -4.918726 ]
+#  [ 4.833742  -4.998616 ]
+#  [ 4.876435  -5.1070657]
+#  [ 4.8003097 -4.9895496]
+#  [ 4.814415  -4.939826 ]
+#  [ 4.8982706 -5.002597 ]
+#  [ 4.8921566 -5.007214 ]
+#  [ 4.7275667 -4.7995715]
+#  [-5.2032604  4.9685383]
+#  [-5.2674313  4.9533935]
+#  [-5.3408823  5.011194 ]
+#  [-5.2503343  5.0409555]
+#  [-5.3014784  4.9942303]
+#  [-5.2731895  5.0459056]
+#  [-5.2438955  4.939106 ]
+#  [-5.179501   4.995266 ]
+#  [-5.260396   4.9847918]
+#  [-5.1453943  4.8937497]
+#  [-5.257353   4.976168 ]
+#  [-5.230095   4.9202924]
+#  [-5.29629    5.003536 ]
+#  [-5.3470926  4.977421 ]
+#  [-5.2809696  4.9401026]]
+# Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zend.
+# 1
+# En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zend Hermóðr en Bragi om hem te begroeten.
+# 1
 
 # RESULTS 2020-05-27 23:00
 #
@@ -712,7 +808,7 @@ train_df.columns = ["text", "labels"]
 # Optional model configuration
 # with 15 epochs, takes 40 minutes on laptop CPU
 model_args = {
-    "num_train_epochs": 15,
+    "num_train_epochs": 20,
     "overwrite_output_dir": 1,
     "output_dir": "outputs/BERT",
 }
