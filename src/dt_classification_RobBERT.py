@@ -8,12 +8,103 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
-# EXPERIMENT 2020-05-28 `17:15
+# RESULTS 2020-05-28 18:28 (locally saved in RoBERTa-003)
 #
-# Add some explicit synthetic training data for vinden en lopen
+# Add some explicit synthetic training data for `vinden` en `lopen`
+#
+# This added 1 "regression", where one case of "zenden" in the imperative form.
+# Looks like "imperative" is more difficult to detect.
+
+# INFO:simpletransformers.classification.classification_model: Training of roberta model complete. Saved to outputs/RoBERTa.
+# INFO:simpletransformers.classification.classification_model:{'mcc': 0.9759000729485332, 'tp': 40, 'tn': 41, 'fp': 0, 'fn': 1, 'eval_loss': 0.06506455917075403}
+# [[ 4.5127707 -5.189252 ]
+#  [ 4.422516  -5.141899 ]
+#  [ 4.4376254 -5.060404 ]
+#  [ 4.1830378 -4.784006 ]
+#  [ 4.48708   -5.177963 ]
+#  [ 3.5659823 -4.0448856]
+#  [ 4.509686  -5.238132 ]
+#  [ 3.2408845 -3.762731 ]
+#  [ 4.437847  -5.0309286]
+#  [ 4.515825  -5.193684 ]
+#  [ 4.564027  -5.113303 ]
+#  [ 4.39019   -5.027665 ]
+#  [ 4.528157  -5.1643867]
+#  [ 4.314218  -4.903183 ]
+#  [ 4.485026  -5.120996 ]
+#  [-3.8476033  4.5130563]
+#  [-4.5768366  5.0869884]
+#  [-4.5324497  5.054275 ]
+#  [-4.4260025  5.140185 ]
+#  [-4.5948057  5.082098 ]
+#  [-3.6306684  4.150005 ]
+#  [-4.4052696  4.963736 ]
+#  [ 2.6459968 -3.069624 ] # fn ("zendt" imperative form mistake not detected)
+#  [-4.6243696  5.317634 ]
+#  [-4.584487   5.075942 ]
+#  [-4.586463   5.059649 ]
+#  [-4.6279826  5.463476 ]
+#  [-4.532429   5.3678446]
+#  [-4.448793   5.161991 ]
+#  [-4.5559072  5.0067186]
+#  [ 4.579213  -5.2127857]
+#  [ 4.376686  -4.977299 ]
+#  [ 4.5584974 -5.2642884]
+#  [-4.59206    5.324033 ]
+#  [-4.632761   5.1654453]
+#  [-4.776362   5.431049 ]
+#  [ 4.4678965 -5.0713797]
+#  [-4.6983333  5.4305263]
+#  [ 4.273419  -5.012199 ]
+#  [-4.7211637  5.374429 ]
+#  [ 4.5263247 -5.2804236]
+#  [-4.5844965  5.113065 ]
+#  [ 4.494684  -5.2651405]
+#  [-4.7487335  5.483908 ]
+#  [ 4.5410194 -5.2400646]
+#  [-4.607552   5.1105533]
+#  [ 4.415904  -5.115765 ]
+#  [-4.6453424  5.1263723]
+#  [ 4.39664   -4.965718 ]
+#  [-4.6048393  5.1230874]
+#  [ 4.4536414 -5.1998444]
+#  [-4.6293106  5.094838 ]
+#  [ 4.5860386 -5.282308 ]
+#  [ 4.4852953 -5.177291 ]
+#  [ 4.5087943 -5.21908  ]
+#  [ 4.5944767 -5.331482 ]
+#  [ 4.5319943 -5.2086506]
+#  [ 4.587343  -5.27311  ]
+#  [ 4.4747114 -5.1729345]
+#  [ 4.537204  -5.256872 ]
+#  [ 4.5376263 -5.288742 ]
+#  [ 4.5452933 -5.2173653]
+#  [ 4.6053686 -5.2954736]
+#  [ 4.530226  -5.2567606]
+#  [ 4.5192127 -5.243206 ]
+#  [ 4.5766706 -5.2628508]
+#  [ 4.629884  -5.191097 ]
+#  [-4.714321   5.349707 ]
+#  [-4.717781   5.4232655]
+#  [-4.6720243  5.3952346]
+#  [-4.7530055  5.501216 ]
+#  [-4.742708   5.452851 ]
+#  [-4.757176   5.4781165]
+#  [-4.468812   5.224184 ]
+#  [-4.652919   5.317809 ]
+#  [-4.699972   5.350121 ]
+#  [-4.646487   5.416941 ]
+#  [-4.7006307  5.4282484]
+#  [-4.7796774  5.4409256]
+#  [-4.682902   5.2941995]
+#  [-4.7613935  5.4417305]
+#  [-4.7368574  5.473317 ]]
+#
+# Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied of de vorst moet er zelf gaan wonen.
+# 1
 
 
-# RESULTS 2020-05-28 13:17
+# RESULTS 2020-05-28 13:17 (locally saved in RoBERTa-002)
 #
 # RoBERTa  (starting from RobBERT)
 # INFO:simpletransformers.classification.classification_model: Training of roberta model complete. Saved to outputs/RoBERTa.
@@ -101,7 +192,7 @@ transformers_logger.setLevel(logging.WARNING)
 #  [-4.9947886   5.2678313 ]
 #  [-4.9045987   5.21294   ]]
 
-# RESULTS 2020-05-28 09:35
+# RESULTS 2020-05-28 09:35 (locally saved in RoBERTa-001)
 #
 # RoBERTa  (starting from RobBERT)
 #
