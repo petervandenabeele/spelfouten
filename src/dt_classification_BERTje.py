@@ -12,6 +12,8 @@ transformers_logger.setLevel(logging.WARNING)
 
 # RESULTS 2020-05-27 23:00
 #
+# Based on BERT with BERTje
+#
 # With also some data from nl.wikipedia, that was correct to have correct "dt" ending
 # for zenden, the accuracy on the validation set (validation set unchanged) improved,
 # but still far from 100% ... Added more data for "zenden", and now the results for
@@ -708,10 +710,11 @@ train_df = pd.DataFrame(train_data)
 train_df.columns = ["text", "labels"]
 
 # Optional model configuration
-# with 10 epochs, took a few minutes to train on laptop CPU
+# with 15 epochs, takes 40 minutes on laptop CPU
 model_args = {
     "num_train_epochs": 15,
     "overwrite_output_dir": 1,
+    "output_dir": "outputs/BERT",
 }
 
 # Create a ClassificationModel
