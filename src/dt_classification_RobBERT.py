@@ -11,6 +11,7 @@ transformers_logger.setLevel(logging.WARNING)
 # EXPERIMENT 2020-05-28 22:40
 #
 # Add validations for vinden en lopen and add some more sentences in training set
+# Not actually executed on Thursday evening; doing a large scale validation experiment instead
 
 # RESULTS 2020-05-28 18:28 (locally saved in RoBERTa-003)
 #
