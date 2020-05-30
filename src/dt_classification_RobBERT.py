@@ -8,9 +8,18 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
-# EXPERIMENTS 2020-05-30 13:45 (to be saved as -005)
+# EXPERIMENT 2020-05-31 01:30 (to be saved as -006)
+#
+# Simplify the kolonisten sentence to be surely correct and add more examples, close to it.
+
+# RESULTS 2020-05-30 18:33 (saved as -005)
 #
 # add 20 more validated correct sentences that where detected as fp
+#
+# One false negative, again for this sentence:
+# Val binnen als de bewoners om hulp vragen, neem het land in, zend kolonisten naar het gebied of de vorst moet er zelf gaan wonen.
+# 0
+# with numbers: [-2.5789528  2.7389593]
 
 # RESULTS 2020-05-30 02:08 (saved as -004)
 #
@@ -415,7 +424,7 @@ eval_data = [
     ["RTL 4 zendt het programma in december 2019 en januari 2020 uit.", 0],
     ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zendt.", 0],
     ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zendt Hermóðr en Bragi om hem te begroeten.", 0],
-    ["Val binnen als de bewoners om hulp vragen, neem het land in, zend kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 0],
+    ["Val binnen als de bewoners om hulp vragen, neem het land in, zend kolonisten naar het gebied!", 0],
     ["En mijn broer Aaron is welsprekender dan ik; zend hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 0],
     ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zendt God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 0],
     ["Sinds 2013 zendt Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 0],
@@ -433,7 +442,7 @@ eval_data = [
     ["RTL 4 zend het programma in december 2019 en januari 2020 uit.", 1],
     ["Een oplossing is dan een digitale hoofdtelefoon die in en rond de 2,4 GHz ontvangt en zend.", 1],
     ["En in het heldendicht Hákonarmál is het Hákon de Goede die naar Walhalla wordt gevoerd door de walkure Göndul en Odin zend Hermóðr en Bragi om hem te begroeten.", 1],
-    ["Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied of de vorst moet er zelf gaan wonen.", 1],
+    ["Val binnen als de bewoners om hulp vragen, neem het land in, zendt kolonisten naar het gebied.", 1],
     ["En mijn broer Aaron is welsprekender dan ik; zendt hem als hulp met mij mee om wat ik zeg te bevestigen, want ik ben bang dat zij mij van leugens zullen betichten.", 1],
     ["In een joodse pseudepigrafische tekst, het Testament van Abraham, zend God de aartsengel Michaël naar Abraham met de boodschap dat deze zich dient voor te bereiden op zijn aanstaande dood.", 1],
     ["Sinds 2013 zend Groot Nieuws Radio voorafgaand aan Opwekking een Top 100 uit van meest populaire Opwekkingsliederen.", 1],
@@ -636,6 +645,8 @@ train_data = [
     ["In dat boek, schrijft Jan het volgende: \"Hetgeen gij hoort, onthoud dat en zend het naar je broers.\"", 0],
     ["Zend zo duidelijke mogelijke instructies naar alle deelnemers!", 0],
     ["Ga er direct naartoe en zend hulp naar de getroffen zones!", 0],
+    ["Val binnen als de inwoners om hulp vragen, neem het gebouw in, zend kolonisten naar het gebied!", 0],
+    ["Val aan als de mensen om hulp roepen, neem het land in, zend redders naar het land!", 0],
     ["Vraag het even na en zend dan direct het resultaat door.", 0],
     ["Wanneer je bent aangekomen, zend je me dan direct een SMS?", 0],
     ["En Hij zei: \"Zend vele groeten naar alle nieuwe leden.\"", 0],
@@ -714,6 +725,8 @@ train_data = [
     ["In dat boek, schrijft Jan het volgende: \"Hetgeen gij hoort, onthoud dat en zendt het naar je broers.\"", 1],
     ["Zendt zo duidelijke mogelijke instructies naar alle deelnemers!", 1],
     ["Ga er direct naartoe en zendt hulp naar de getroffen zones!", 1],
+    ["Val binnen als de inwoners om hulp vragen, neem het gebouw in, zendt kolonisten naar het gebied!", 1],
+    ["Val aan als de mensen om hulp roepen, neem het land in, zendt redders naar het land!", 1],
     ["Vraag het even na en zendt dan direct het resultaat door.", 1],
     ["Wanneer je bent aangekomen, zendt je me dan direct een SMS?", 1],
     ["En Hij zei: \"Zendt vele groeten naar alle nieuwe leden.\"", 1],
@@ -1408,6 +1421,7 @@ model_args = {
 # Create a ClassificationModel
 model = ClassificationModel(
     "roberta", "pdelobelle/robBERT-base", args=model_args, use_cuda=False,
+#    "roberta", "outputs/RoBERTa-005", args=model_args, use_cuda=False,
 )
 print(type(model))
 # <class 'simpletransformers.classification.classification_model.ClassificationModel'>
