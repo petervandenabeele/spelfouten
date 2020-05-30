@@ -8,10 +8,123 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
-# EXPERIMENT 2020-05-29 23:40
+# RESULTS 2020-05-30 02:08
 #
 # Add validations for vinden en lopen and add some more sentences in training set
 # Add 250 validated and simetimes corrected false positives from nl.wikipedia
+#
+# Current iteration: 100%|█████| 95/95 [05:00<00:00,  3.17s/it]
+# Epoch: 100%|█████████████████| 25/25 [2:11:19<00:00, 315.17s/it]0<00:00,  3.09s/it]
+# INFO:simpletransformers.classification.classification_model: Training of roberta model complete. Saved to outputs/RoBERTa.
+# INFO:simpletransformers.classification.classification_model: Converting to features started. Cache is not used.
+# 100%|████████████████████████| 102/102 [00:00<00:00, 1245.33it/s]
+# 100%|████████████████████████| 13/13 [00:09<00:00,  1.31it/s]
+#
+# {'mcc': 0.9805806756909202, 'tp': 50, 'tn': 51, 'fp': 0, 'fn': 1, 'eval_loss': 0.08637790219486655}
+# [[ 5.072724  -5.16919  ]
+#  [ 5.2086973 -5.248765 ]
+#  [ 5.284417  -5.3928366]
+#  [ 5.120717  -5.1662865]
+#  [ 4.9712305 -5.1441336]
+#  [ 5.2334666 -5.1827936]
+#  [ 5.322767  -5.3885965]
+#  [ 4.909508  -4.7539134]
+#  [ 4.853618  -4.839903 ]
+#  [ 5.20203   -5.2738957]
+#  [ 5.2042103 -5.271866 ]
+#  [ 5.0572205 -5.148448 ]
+#  [ 5.089326  -5.1969914]
+#  [ 5.0874596 -5.1790833]
+#  [ 5.129769  -5.1137094]
+#  [-5.0539637  5.047777 ]
+#  [-5.3746557  5.1388187]
+#  [-5.3369727  5.0960712]
+#  [-5.282626   5.1276293]
+#  [-5.322479   5.0536184]
+#  [-5.032714   4.855646 ]
+#  [-4.835171   4.6840305]
+#  [-4.565631   4.4260798]
+#  [-5.3019485  5.093189 ]
+#  [-5.267249   5.0167694]
+#  [-5.34662    5.129101 ]
+#  [-5.4699116  5.3178396]
+#  [-5.47892    5.30897  ]
+#  [-5.4531016  5.30857  ]
+#  [-5.220925   4.930647 ]
+#  [ 5.0597696 -5.2147384]
+#  [ 5.26361   -5.2005615]
+#  [ 5.0512085 -5.173957 ]
+#  [-5.4979496  5.338931 ]
+#  [-4.9640255  4.72075  ]
+#  [-5.4883857  5.317644 ]
+#  [ 5.0230613 -5.1405973]
+#  [-5.545164   5.363612 ]
+#  [ 5.1490407 -5.2862864]
+#  [-5.55048    5.3330336]
+#  [ 5.303106  -5.384506 ]
+#  [-5.3270464  5.1791487]
+#  [ 5.178322  -5.310136 ]
+#  [-5.518806   5.321513 ]
+#  [ 5.301798  -5.390119 ]
+#  [-5.30515    5.1474786]
+#  [ 5.373068  -5.3882885]
+#  [-5.213668   5.0283823]
+#  [ 5.3066196 -5.3759317]
+#  [-5.3080626  5.1352725]
+#  [ 5.312237  -5.2794724]
+#  [-4.9575186  4.7886333]
+#  [ 5.0735064 -5.2443457]
+#  [ 5.1902084 -5.123019 ]
+#  [ 4.872652  -5.000147 ]
+#  [ 5.2282724 -5.3265486]
+#  [ 5.1672206 -5.2738647]
+#  [ 5.2104845 -5.364865 ]
+#  [ 5.1031866 -5.1206217]
+#  [ 5.2842927 -5.352386 ]
+#  [ 5.102346  -5.176386 ]
+#  [ 5.133417  -5.278416 ]
+#  [ 5.2977986 -5.341291 ]
+#  [ 4.9967813 -5.1879063]
+#  [ 5.2143106 -5.2748265]
+#  [ 5.131376  -5.148288 ]
+#  [ 5.023489  -4.9723454]
+#  [-5.492975   5.322645 ]
+#  [-5.522507   5.362359 ]
+#  [-5.5051312  5.3011465]
+#  [-5.5240717  5.332881 ]
+#  [-5.5137234  5.32992  ]
+#  [-5.505416   5.324025 ]
+#  [-5.495648   5.355701 ]
+#  [-5.3998194  5.2860165]
+#  [-5.5181065  5.3612056]
+#  [-5.5158806  5.3301334]
+#  [-5.4914     5.377198 ]
+#  [-5.534359   5.3273673]
+#  [-3.5064971  3.5955586]
+#  [-5.5436115  5.391565 ]
+#  [-5.570409   5.3429365]
+#  [ 2.0750597 -2.2529595]
+#  [ 5.05908   -5.173483 ]
+#  [ 5.085215  -5.299468 ]
+#  [ 4.8810205 -4.9527726]
+#  [ 5.1642423 -5.2596264]
+#  [ 4.818937  -4.872264 ]
+#  [ 5.06304   -5.1964526]
+#  [ 5.05728   -5.1795764]
+#  [ 5.204444  -5.2888927]
+#  [ 5.222419  -5.2816167]
+#  [-4.9257574  4.734909 ]
+#  [-5.4712234  5.3465385]
+#  [-5.4860864  5.3522663]
+#  [ 4.440975  -4.5250454]
+#  [-5.225274   5.0643606]
+#  [-5.493291   5.3201823]
+#  [-5.489069   5.317411 ]
+#  [-5.233225   5.0195584]
+#  [-5.2817893  5.129017 ]
+#  [-5.2512813  5.108218 ]]
+# Het is toch erg dat hij dat niet vind.
+# 1
 
 # RESULTS 2020-05-28 18:28 (locally saved in RoBERTa-003)
 #
@@ -1005,7 +1118,7 @@ train_data = [
     # Correct spelling
     ["Met betrekking tot de temperatuur kan men stellen, dat het 0,58 °C kouder wordt per 100 m hoogtetoename.", 0],
     ["Doordat in de Alpen een bijzondere vorm van de veehouderij beoefend wordt, ontstond er een groot aantal Alpiene kaassoorten.", 0],
-    ["Andere bekende nummers over de stad zijn "Oh Lieve Vrouwe Toren" van La Esterella, "Antwerp" van Mad Curry, "Ik Wil deze Nacht in de Straten Verdwalen" van Wannes van de Velde en "Den Antwerp wordt Kampioen" van Stafke Fabri.", 0],
+    ["Andere bekende nummers over de stad zijn \"Oh Lieve Vrouwe Toren\" van La Esterella, \"Antwerp\" van Mad Curry, \"Ik Wil deze Nacht in de Straten Verdwalen\" van Wannes van de Velde en \"Den Antwerp wordt Kampioen\" van Stafke Fabri.", 0],
     ["Verwacht wordt dat in de toekomst ook zwaartekrachtgolven informatie over kosmische gebeurtenissen aan ons kunnen overbrengen.", 0],
     ["Over wat acteren precies is en hoe het beste resultaat wordt bereikt, wordt verschillend gedacht.", 0],
     ["Hoewel de koers van de AEX gezien wordt als graadmeter voor algehele Nederlandse economie is dit verband niet zo eenduidig.", 0],
@@ -1142,7 +1255,7 @@ train_data = [
     ["Toch is wat tot de literaire canon gerekend wordt slechts een consensus en kunnen auteurs van wie het werk in een eerdere periode nog tot literatuur werd gerekend uit deze canon verdwijnen, en andersom.", 0],
     ["In de metro, DLR en bussen in Londen wordt betaald met de Oyster card, de Londense versie van de OV-chipkaart of met een contactloze bankpas.", 0],
     ["In zo'n geval wordt naar de LGPL gegrepen zodat de bibliotheek ook in gesloten software kan worden gebruikt.", 0],
-    ["In 2006 zei hij in Amnesty's mensenrechtenmagazine "Wordt Vervolgd" dat Nederland moest ontverdonken refererend aan het asielbeleid van toenmalig minister Rita Verdonk.", 0],
+    ["In 2006 zei hij in Amnesty's mensenrechtenmagazine \"Wordt Vervolgd\" dat Nederland moest ontverdonken refererend aan het asielbeleid van toenmalig minister Rita Verdonk.", 0],
     ["Voor zover bekend hebben alle culturen in alle tijden muziek gekend, waarbij deze kunst op verschillende plaatsen en in verschillende tijden steeds weer anders beoefend en ervaren werd en wordt.", 0],
     ["In de klassieke muziek wordt dat de maatsoort genoemd.", 0],
     ["Aangezien de parallellen kleincirkels zijn, wordt op hogere breedte de afstand van een lengtegraad echter steeds kleiner, om uiteindelijk op de polen nul te worden.", 0],
@@ -1163,11 +1276,11 @@ train_data = [
     ["Aangenomen wordt dat er een mengelmoes van heidense geloven bestond voordat het christendom de overheersende godsdienst werd in de Nederlanden.", 0],
     ["Ze maken gebruik van situaties uit de realiteit, maar overdrijven dit zodanig dat het absurd wordt.", 0],
     ["Het gevolg is dat het steeds moeilijker wordt om op te vallen en zodoende lezers te werven.", 0],
-    ["In 2003 verscheen "Komt een vrouw bij de dokter", het debuut van Kluun.", 0],
+    ["In 2003 verscheen \"Komt een vrouw bij de dokter\", het debuut van Kluun.", 0],
     ["Als een tekst, bestand, afbeelding, etc in Wikipedia overgenomen wordt, dient altijd aangegeven te worden wie de maker is.", 0],
     ["Let op: bij websites met foto's wordt met het woord rechtenvrij vaak bedoeld dat er voor het gebruik van een foto niet apart betaald hoeft te worden.", 0],
     ["En de jongere jaren konder er ook hartelijk om lachen.", 0],
-    ["De woeste riep: "je stinkt."", 0],
+    ["De woeste riep: \"je stinkt.\"", 0],
     ["Wellicht ten overvloede zij vermeld dat met de onderhavige la niet de muzieknoot bedoeld wordt die volgt op de sol.", 0],
     ["Zij hopen met deze verdediging te bereiken dat de samenleving weer wat socialer wordt.", 0],
     ["Paardevarken is een term die gebruikt wordt als aanduiding voor een ander.", 0],
@@ -1201,7 +1314,7 @@ train_data = [
     ["Een programma dat met een compiler vertaald is naar doelcode, kan over het algemeen — mede door optimalisatie — sneller door de computer worden uitgevoerd, dan wanneer gebruikgemaakt wordt van een interpreter, omdat de laatste de opdrachten altijd eerst nog moet omzetten naar machinetaal - het equivalent van de compilatie wordt in run-time gedaan.", 0],
     ["Pas dan wordt het mogelijk bij mensen met dezelfde diagnose behandelingen in te stellen en systematisch te evalueren hoe goed die werken.", 0],
     ["Tegenwoordig wordt gewoonlijk met planten bedoeld: de landplanten, die de mossen, levermossen, hauwmossen en de vaatplanten omvatten.", 0],
-    ["Daarom wordt het ook wel "the Swiss army knife" of programming languages genoemd.", 0],
+    ["Daarom wordt het ook wel \"the Swiss army knife of programming languages\" genoemd.", 0],
     ["Verder wordt in deze constitutie opgeroepen tot een grondige studie van het Latijn, Grieks en Hebreeuws tijdens de priesteropleidingen in de verscheidene bisdommen.", 0],
     ["In wezen is de wasautomaat zonder dat het gerealiseerd wordt een reeds ingeburgerde gespecialiseerde robot.", 0],
     ["In het Nederlands wordt naast ruimtevaarder vooral astronaut gebruikt.", 0],
