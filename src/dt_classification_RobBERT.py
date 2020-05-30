@@ -8,7 +8,11 @@ logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
-# RESULTS 2020-05-30 02:08
+# EXPERIMENTS 2020-05-30 13:45 (to be saved as -005)
+#
+# add 20 more validated correct sentences that where detected as fp
+
+# RESULTS 2020-05-30 02:08 (saved as -004)
 #
 # Add validations for vinden en lopen and add some more sentences in training set
 # Add 250 validated and simetimes corrected false positives from nl.wikipedia
@@ -1366,6 +1370,28 @@ train_data = [
     ["Met de hervorming wordt gepoogd financiële prikkels in te bouwen voor een goedkopere en efficiëntere gezondheidszorg.", 0],
     ["Elk wordt geleid door een minister en een onderminister .", 0],
     ["Om verwarring te voorkomen wordt soms de term FLOSS gebruikt, waarbij de 'L' staat voor Libre .", 0],
+
+    # The new sentences for -005 (a small number of strong fp, based on evaluating the -004 model on large number of nl.wikipedia)
+    ["Bamboehout is geen echt hout maar verhout gras.", 0],
+    ["Zij zong een overwegend Nederlandstalig repertoire.", 0],
+    ["In 1942 werden de Kripo, de Sicherheitsdienst en de Gestapo samengevoegd en onder het bevel geplaatst van de Reichssicherheitshauptamt.", 0],
+    ["Op 27 september 1939 brachten Himmler en Heydrich de Sicherheitsdienst, Gestapo en de Kripo onder in het Reichssicherheitshauptamt en voegden het toe aan de organisatiestructuur van de SS.", 0],
+    ["Wanneer 1 Klingon zich misdragen heeft tast dit de eer aan van alle leden van de familie of het huis.", 0],
+    ["In 1994 hernam hij zijn rol van Bompa in de spin-off van Bompa, Chez Bompa Lawijt.", 0],
+    ["Zo is het voornaamste doelwit van iemand als Richard Rorty in zijn \"Philosophy and the Mirror of Nature\" Descartes omdat hij, volgens Rorty, ervoor gezorgd heeft dat de filosofie wordt gedomineerd door een verkeerde opvatting van de menselijke geest, al zou het om een spiegel gaan waarin de buitenwereld wordt geprojecteerd en men zo tot kennis komt.", 0],
+    ["Hoe techniek en technologie zich verder zullen ontwikkelen, is moeilijk te voorspellen -- moeilijker naarmate de termijn waar je naar kijkt langer wordt.", 0],
+    ["Deze haalde het maar tot Sicilië.", 0],
+    ["Vooral als je je bij een onderwerp sterk betrokken voelt, worden je de emoties op overlegpagina's al snel de baas.", 0],
+    ["De eerste is de spontane lach, die verschijnt als je met een komische situatie geconfronteerd wordt.", 0],
+    ["Het tast glas snel aan en wordt gebruikt voor het etsen ervan.", 0],
+    ["Chloorgas tast de slijmvliezen aan, dus ook de luchtwegen en de longen.", 0],
+    ["Typisch Fries zijn constructies van het type hee het staan bleve, waarbij bleve een voltooid deelwoord is, en niet, zoals in het Nederlands, een infinitief.", 0],
+    ["De herbergier vermoordde hen en borg het vlees van de studenten op in een ton met pekel.", 0],
+    ["Vanaf 2002 zong ze in een coverband.", 0],
+    ["Tegen de avond gaf Parma het bevel staakt het vuren.", 0],
+    ["Die vond het geen probleem.", 0],
+    ["De mate waarin partijen de nadruk leggen op hun beginselen, dan wel op hun beleidsvoornemens onderscheid beginselpartijen en programpartijen.", 0],
+    ["Het gevormde ozon tast bij mensen en dieren het longweefsel aan en bij planten remt het de groei en beschadigt het de bladeren.", 0],
 ]
 
 train_df = pd.DataFrame(train_data)
