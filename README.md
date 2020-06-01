@@ -1,4 +1,4 @@
-# Spelfouten: Dutch spell checking with BERT based models
+# Spelfouten: Dutch spell checking with BERT based models ("dt"-fouten)
 
 ## Introduction
 
