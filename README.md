@@ -4,15 +4,15 @@
 
 As part of my #CoronaSabbatical in May 2020, I tried to use BERT-based models to
 find "dt"-mistakes and other spelling mistakes in Dutch text. In the Dutch language
-there is a specifiek kind of mistake: "dt-fouten", that are hard to find and avoid.
+there is a specifiek kind of mistake: "dt-fouten", that is hard to find and avoid.
 A text with a "dt-fout" looses a lot of its credibility, just for that single reason
 (and in school it would also lose most, if not all, of its score).
 
-I used pretrained [BERTje](https://github.com/wietsedv/bertje) and
-[RobBERT](https://ipieter.github.io/blog/robbert/) Dutch language models and trained a SequenceClassification
-layer on top. The SequenceClassification layer had a top layer with 2 neurons, representing
-the 2 cases: negative (label "0", correct spelling) and positive (label "1", spelling mistake),
-per sentence.
+I used pretrained [RobBERT](https://ipieter.github.io/blog/robbert/) and
+[BERTje](https://github.com/wietsedv/bertje) Dutch language models and trained a
+SequenceClassification layer on top. The SequenceClassification layer had a top layer
+with 2 neurons, representing the 2 cases: negative (label "0", correct spelling) and
+positive (label "1", spelling mistake), per sentence.
 
 I first experimented with direct usage of transformers, but then discovered
 [simpletransformers](https://simpletransformers.ai/) that made it easier to set-up initial
@@ -23,10 +23,10 @@ README.
 
 ## Experimental
 
-I used pre-trained models for BERTje and RobBert, by using this models in simpletransformers:
+I used pre-trained models for RobBERT and BERTje, by using these models in simpletransformers:
 
-* "bert", "bert-base-dutch-cased" , training over 25 epochs
 * "roberta", "pdelobelle/robBERT-base", training over 25 epochs
+* "bert", "bert-base-dutch-cased" , training over 25 epochs
 
 The training data can be seen in this [code](./src/dt_classification_RoBERTa_BERT.py).
 It contains a few hundred examples with labels 0 for correct conjugations of
