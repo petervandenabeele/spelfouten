@@ -59,8 +59,8 @@ I used pre-trained models for RobBERT and BERTje, by using these models in simpl
 * "bert", "bert-base-dutch-cased" , training over 25 epochs
 
 The training data can be seen in this [code](./src/dt_classification_RoBERTa_BERT.py).
-It contains a few hundred examples with labels 0 for correct conjugations of
-`worden`, `zenden`, `vinden` and label 1 for incorrect conhjugations of these verbs.
+It contains a few hundred examples with labels `0` for correct conjugations of
+`worden`, `zenden`, `vinden` and label `1` for incorrect conjugations of these verbs.
 
 The validation set used immediately after the training consists of mainly synthetic examples
 of 102 elements.
@@ -329,7 +329,7 @@ discovered as a true positive, the other 49 are false negative (the `fn` value i
 
 ## Performance
 
-For the training, we used the CPU (7 cores on my laptop), and this took **120 minutes** in the end. One of the
+For the training, we used the CPU (7 cores on my laptop), and this took **130 minutes** in the end. One of the
 reasons I used the CPU (and not the GPU) for training, is that I would run into OOM (Our Of Memory) errors on
 the GPU quickly. There was 2.4 GB of the 4 GB assigned for the python program, but already early in the process,
 some OOM would show up. This did not occur with the CPU training, and did also not occur with the GPU inference
@@ -338,7 +338,7 @@ some OOM would show up. This did not occur with the CPU training, and did also n
 For the inference, I saw a factor 4 faster inference on the GPU (nvidia leightweight Mobile GPU of a few years old).
 By using a batch size of approx. 100, an inference costed about **30 ms per inference** (3 seconds per batch of 100 inferences).
 
-The performance seems similar for BERT and RoBERTa based models.
+The performance seems very similar (within a few percent) for BERT and RoBERTa based models.
 
 
 ## Discussion
