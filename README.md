@@ -1,4 +1,4 @@
-# Spelfouten: Dutch spell checking with BERT based models (focussed on "dt"-fouten)
+# Spelfouten: Dutch spell checking with BERT based Deep Learning models (focussed on "dt"-fouten)
 
 ## Abstract
 
