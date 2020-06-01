@@ -92,7 +92,7 @@ negatives are listed in the code. A few hundred training examples, 102 symmetric
 
 ### Large validation set
 
-An larger validation set of 10,000 sentences that is created from a larger data set of 14M nl.wikipedia sentences, by picking one
+A larger validation set of 10,000 sentences that is created from a larger data set of 14M nl.wikipedia sentences, by picking one
 sentence every 1,000 entries, yields these results (ONLY negative labels, presumed correct spelling, not fully validated). This
 is the [validation code](./src/dt_classification_RoBERTa_BERT_final_validation.py).
 
