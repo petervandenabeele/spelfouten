@@ -10,9 +10,8 @@ transformers_logger.setLevel(logging.WARNING)
 
 # EXPERIMENT 2020-05-31 12:02 (saved as BERT-002)
 #
-# exact same trainng and validation set on BERT (starting from BERTje)
-# Confusingly running from this single fle with the name dt_classification_RobBERT,
-# but with different model parameters.
+# exact same training and validation set on BERT (starting from BERTje)
+# instead of RoBERTa (starting from RobBERT).
 #
 # "bert", "bert-base-dutch-cased", args=model_args, use_cuda=False,
 #
