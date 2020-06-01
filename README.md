@@ -1,5 +1,27 @@
 # Spelfouten: Dutch spell checking with BERT based models ("dt"-fouten)
 
+## Abstract
+
+As part of my #CoronaSabbatical in May 2020, I experimented with BERT-based
+Dutch language models (`RobBERT`, based on `RoBERTa` and `BERTje`, based on `BERT`),
+to learn how good I could train the models to predict "dt-fouten" and other
+spelling mistakes in Dutch language.
+
+My best result was **{'mcc': 0.899370194601987, 'tp': 83, 'tn': 9998, 'fp': 2, 'fn': 17, 'eval_loss': 0.01631144658936272}**
+for a validation set of 10,000 negatives (correct sentences from nl.wikipedia)
+and 100 positives (sentences with "dt"-fouten on the 3 trained verbs only),
+starting from the `RobBERT` model. In my approach, I got consistently beter
+accuracy (both on false negatives and fals positives) with RobBERT, compared
+to BERTje. I have no clear explanation why that is (I am very new at this!).
+
+As soon as I added "dt"-fouten on untrained verbs, I got near-random results
+(only 60% detected). Adding other spelling mistakes where completely _not_
+detected (only 2% detected). So, I was unable to use training on a few common
+example verbs ('worden', 'vinden', 'zenden') to generalize to "dt"-fouten
+in other similar verbs and even more unable to generalize to generic
+spelling mistakes. Of course, this can be due to my limited training sets,
+and my limited experience in this matter. Proposed future work may solve this.
+
 ## Introduction
 
 As part of my #CoronaSabbatical in May 2020, I tried to use BERT-based models to
