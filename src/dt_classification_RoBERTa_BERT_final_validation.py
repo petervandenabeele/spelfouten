@@ -32,9 +32,9 @@ transformers_logger.setLevel(logging.WARNING)
 
 # with 100 sentences with on purpose incorrect "dt" mistakes in the trained verbs (worden, zenden, vinden)
 #
-# with 100 sentences with on purpose incorrect "dt" mistakes in non-trained verbs
+# with 50 sentences with on purpose incorrect "dt" mistakes in non-trained verbs
 #
-# with 100 sentences with on purpose spelling mistakes in other words
+# with 50 sentences with on purpose spelling mistakes in other words
 
 
 # Preparing eval data
