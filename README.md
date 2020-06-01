@@ -63,6 +63,15 @@ The training data can be seen in this [code](./src/dt_classification_RoBERTa_BER
 It contains a few hundred examples with labels `0` for correct conjugations of
 `worden`, `zenden`, `vinden` and label `1` for incorrect conjugations of these verbs.
 
+Parts of the training and valdiation data where obtained from 14M Dutch sentences,
+extracted from nl.wikipedia export. Some of this text has spelling mistakes itself
+(including a significant amount of ... wait for it ... "dt"-fouten ;-). This is the
+[code](https://gitlab.com/spelfouten/dutch-language/-/blob/master/docs/raw/01_nl_wikipedia.md)
+to download and naively process the nl.wikipedia data to clean sentences. Afterwards,
+some manual, undocumented cleaning was applied (`vim` on a 1.5 GB text file actually
+works, without major drama, including large substitutions etc. ; then again `sed` and
+`grep` are more efficient :-)
+
 The validation set used immediately after the training consists of mainly synthetic examples
 of 102 elements.
 
@@ -319,18 +328,19 @@ are trained. By design, Wikipedia has a quite "uniform" descriptive nature about
 * based on `BERTje`:  {'mcc': 0.7794099474524135, 'tp': 100, 'tn': 9991, 'fp': 9, 'fn': 50, 'eval_loss': 0.06995266284639894}
 
 
-As a last step, I also added 50 more exmaples of other random spelling mistakes.
+As a last step, I also added 50 more examples of other random spelling mistakes.
 
 * based on `RobBERT`: {'mcc': 0.7450613407884148, 'tp': 114, 'tn': 9998, 'fp': 2, 'fn': 86, 'eval_loss': 0.08463327962564625}
 * based on `BERTje`:  {'mcc': 0.6766900170856324, 'tp': 101, 'tn': 9991, 'fp': 9, 'fn': 99, 'eval_loss': 0.10399121355988196}
 
 For the random spelling mistakes, there is _no_ prediction at all. Of the 50 examples, only 1 was
-discovered as a true positive, the other 49 are false negative (the `fn` value increases with 49, for bith models) :-/
+discovered as a true positive, the other 49 are false negative (the `fn` value increases with 49, for both models) :-/
 
 
 ## Performance
 
-For the training, we used the CPU (7 cores on my laptop), and this took **130 minutes** in the end. One of the
+For the training, I used the CPU (7 cores on my laptop), and this took **130 minutes** in the end. The time needed for
+the training was strongly increasing during my experiments, probably because I added more and more examples. One of the
 reasons I used the CPU (and not the GPU) for training, is that I would run into OOM (Our Of Memory) errors on
 the GPU quickly. There was 2.4 GB of the 4 GB assigned for the python program, but already early in the process,
 some OOM would show up. This did not occur with the CPU training, and did also not occur with the GPU inference
@@ -341,7 +351,6 @@ By using a batch size of approx. 100, an inference costed about **30 ms per infe
 
 The performance seems very similar (within a few percent) for BERT and RoBERTa based models.
 
-
 ## Discussion
 
 For the "narrow" task of seeing "dt"-fouten for verbs for which I explicitly trained, good accuracy can be obtained
@@ -350,7 +359,8 @@ model complexity ?).
 
 For this task, the RoBERTa based model (RobBERT) seems more accurate, compared to the BERT based model (BERTje)
 both in true positives as avoiding false positives. Maybe (???) this is caused by the more modern approach in RoBERTa
-and the fact that I do not use multi-sentence correlation in my experiments. Also, the vocabulary is very different
+and the fact that I do not use multi-sentence correlation (NSP, Next Sequence Prediction) in my experiments. I have
+split all paragraphs in the original nl.wikipedia export into sentences. Also, the vocabulary is very different
 for BERTje (a set of 30,000 parts of words with WordPiece) vs. RobBERTa (a set of 50,000 English words, and probably
 only the single letter entries are really used from the vocab). It is unclear to me which impact this different
 vocab has on the results.
