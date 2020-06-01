@@ -1,4 +1,4 @@
-# Run this with python ./src/dt_classification_RobBERT.py
+# Run this with python ./src/dt_classification_RoBERTa_BERT.py
 
 from simpletransformers.classification import ClassificationModel
 import pandas as pd
