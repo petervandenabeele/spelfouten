@@ -41,14 +41,55 @@ transformers_logger.setLevel(logging.WARNING)
 # Reference 10K sentences that are (hopefully) correct
 
 correct_10K_sentences_file_name = "./data/correct-sentences-nlwiki-10K.txt"
-sentences_file_name = correct_10K_sentences_file_name
+incorrect_dt_on_trained_verbs_file_name = "./data/incorrect_dt_on_trained_verbs.txt"
+incorrect_dt_on_untrained_verbs_file_name = "./data/incorrect_dt_on_untrained_verbs.txt"
+incorrect_other_mistakes_file_name = "./data/incorrect_other_mistakes.txt"
 
-eval_data = []
+CORRECT_LABEL = 0
+INCORRECT_LABEL = 1
 
-with open(sentences_file_name, 'r') as sentences_file:
+correct_data = []
+
+with open(correct_10K_sentences_file_name, 'r') as sentences_file:
     for line in sentences_file:
         clean_line = line.rstrip()
-        eval_data.append([line, 0])
+        correct_data.append([clean_line, CORRECT_LABEL])
+
+print(correct_data[0])
+print(correct_data[1])
+
+incorrect_dt_on_trained_verbs = []
+with open(incorrect_dt_on_trained_verbs_file_name, 'r') as sentences_file:
+    for line in sentences_file:
+        clean_line = line.rstrip()
+        incorrect_dt_on_trained_verbs.append([clean_line, INCORRECT_LABEL])
+
+print(incorrect_dt_on_trained_verbs[0])
+print(incorrect_dt_on_trained_verbs[1])
+
+incorrect_dt_on_untrained_verbs = []
+with open(incorrect_dt_on_untrained_verbs_file_name, 'r') as sentences_file:
+    for line in sentences_file:
+        clean_line = line.rstrip()
+        incorrect_dt_on_untrained_verbs.append([clean_line, INCORRECT_LABEL])
+
+print(incorrect_dt_on_untrained_verbs[0])
+print(incorrect_dt_on_untrained_verbs[1])
+
+incorrect_other_mistakes = []
+with open(incorrect_other_mistakes_file_name, 'r') as sentences_file:
+    for line in sentences_file:
+        clean_line = line.rstrip()
+        incorrect_other_mistakes.append([clean_line, INCORRECT_LABEL])
+
+print(incorrect_other_mistakes[0])
+print(incorrect_other_mistakes[1])
+
+
+eval_data = correct_data  + \
+            incorrect_dt_on_trained_verbs + \
+            incorrect_dt_on_untrained_verbs + \
+            incorrect_other_mistakes
 
 eval_df = pd.DataFrame(eval_data)
 eval_df.columns = ["text", "labels"]
@@ -57,12 +98,14 @@ eval_df.columns = ["text", "labels"]
 # Optional model configuration
 model_args = {
     "overwrite_output_dir": 0, # we are moving the dir to a named dir now
-    "output_dir": "outputs/RoBERTa"
+    "output_dir": "outputs/BERT",
+    "eval_batch_size": 100,
 }
 
 # Create a ClassificationModel
 model = ClassificationModel(
-    "roberta", "outputs/RoBERTa-006", args=model_args, use_cuda=True,
+    "bert", "outputs/BERT-002", args=model_args, use_cuda=True,
+#    "roberta", "outputs/RoBERTa-006", args=model_args, use_cuda=True,
 )
 print(type(model))
 # <class 'simpletransformers.classification.classification_model.ClassificationModel'>
