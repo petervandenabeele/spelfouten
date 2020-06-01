@@ -1,4 +1,4 @@
-# Spelfouten: Dutch spell checking with BERT based models ("dt"-fouten)
+# Spelfouten: Dutch spell checking with BERT based models (focussed on "dt"-fouten)
 
 ## Abstract
 
@@ -25,10 +25,11 @@ and my limited experience in this matter. Proposed future work may solve this.
 ## Introduction
 
 As part of my #CoronaSabbatical in May 2020, I tried to use BERT-based models to
-find "dt"-mistakes and other spelling mistakes in Dutch text. In the Dutch language
-there is a specifiek kind of mistake: "dt-fouten", that is hard to find and avoid.
-A text with a "dt-fout" looses a lot of its credibility, just for that single reason
-(and in school it would also lose most, if not all, of its score).
+find "dt"-fouten  and other spelling mistakes in Dutch text. In the Dutch language
+there is a specifiek kind of mistake: "dt-fouten" (translated: "dt"-mistake),
+that is hard to find and avoid. A text with a "dt-fout" looses a lot of its
+credibility, just for that single reason (and in school it would also lose most,
+if not all, of its score).
 
 I used pretrained [RobBERT](https://ipieter.github.io/blog/robbert/) and
 [BERTje](https://github.com/wietsedv/bertje) Dutch language models and trained a
