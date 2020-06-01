@@ -9,13 +9,14 @@ A text with a "dt-fout" looses a lot of its credibility, just for that single re
 (and in school it would also lose most, if not all, of its score).
 
 I used pretrained [BERTje](https://github.com/wietsedv/bertje) and
-[RobBERT](https://ipieter.github.io/blog/robbert/) models and trained a SequenceClassification
+[RobBERT](https://ipieter.github.io/blog/robbert/) Dutch language models and trained a SequenceClassification
 layer on top. The SequenceClassification layer had a top layer with 2 neurons, representing
-the 2 cases: negative (label "0", correct spelling) and positive (label "1", spelling mistake).
+the 2 cases: negative (label "0", correct spelling) and positive (label "1", spelling mistake),
+per sentence.
 
 I first experimented with direct usage of transformers, but then discovered
 [simpletransformers](https://simpletransformers.ai/) that made it easier to set-up initial
-experiments. Also the deafult hyperparameters where set-up easily with simpletransformers.
+experiments. Also the default hyperparameters where set-up easily with simpletransformers.
 
 A lot of my "learning" history can be found in the history of this repo and this
 README.
@@ -56,15 +57,16 @@ The validation set used during the training sessions, with strongly correlated e
 (see this training [code](./src/dt_classification_RoBERTa_BERT.py)), yields these results. Details of the false
 negatives are listed in the code. A few hundred training examples, 102 symmetrically balanced evaluation examples.
 
-* based on `RobBERT` : {'mcc': 0.9805806756909202, 'tp': 50, 'tn': 51, 'fp': 0, 'fn': 1, 'eval_loss': 0.08347923998371698}
-* based on `BERTje`  : {'mcc': 0.9615239476408232, 'tp': 49, 'tn': 51, 'fp': 0, 'fn': 2, 'eval_loss': 0.20460643590251074}
+* based on `RobBERT` : **{'mcc': 0.9805806756909202, 'tp': 50, 'tn': 51, 'fp': 0, 'fn': 1, 'eval_loss': 0.08347923998371698}**
+* based on `BERTje`  : **{'mcc': 0.9615239476408232, 'tp': 49, 'tn': 51, 'fp': 0, 'fn': 2, 'eval_loss': 0.20460643590251074}**
 
 ### Large validation set
 
 An larger validation set of 10,000 sentences that is created from a larger data set of 14M nl.wikipedia sentences, by picking one
-sentence every 1,000 entries, yields these results (ONLY negative labels, presumed correct spelling, not fully validated):
+sentence every 1,000 entries, yields these results (ONLY negative labels, presumed correct spelling, not fully validated). This
+is the [validation code](./src/dt_classification_RoBERTa_BERT_final_validation.py).
 
-* based on `RobBERT` : {'mcc': 0.0, 'tp': 0, 'tn': 9998, 'fp': 2, 'fn': 0, 'eval_loss': 0.0010510498600706342}
+* based on `RobBERT` : **{'mcc': 0.0, 'tp': 0, 'tn': 9998, 'fp': 2, 'fn': 0, 'eval_loss': 0.0010510498600706342}**
 ```
 INFO:simpletransformers.classification.classification_model:{'mcc': 0.0, 'tp': 0, 'tn': 9998, 'fp': 2, 'fn': 0, 'eval_loss': 0.0010510498600706342}
 [[ 5.208954  -5.6316767]
@@ -80,7 +82,7 @@ Het is een bundel met documentaire-achtige verhalen over muzikanten en belangrij
 0
 ```
 
-* based on `BERTje`  : {'mcc': 0.0, 'tp': 0, 'tn': 9991, 'fp': 9, 'fn': 0, 'eval_loss': 0.007517435135614505}
+* based on `BERTje`  : **{'mcc': 0.0, 'tp': 0, 'tn': 9991, 'fp': 9, 'fn': 0, 'eval_loss': 0.007517435135614505}**
 
 ```
 INFO:simpletransformers.classification.classification_model:
@@ -116,10 +118,12 @@ less false positives then BERTje. The reason for this could be in choices of par
 value of mcc (the Matthews correlation coefficient) is obviously zero, since this is an imbalanced validation set with
 only negatives.
 
+### "dt"-fouten for **trained** verbs
+
 Adding to this 10,000 negative labels, a set of 100 sentences with "dt" mistake in the _trained verbs_ (`worden`, `zenden`, `vinden`),
 yields these results:
 
-* based on `RobBERT` : {'mcc': 0.899370194601987, 'tp': 83, 'tn': 9998, 'fp': 2, 'fn': 17, 'eval_loss': 0.01631144658936272}
+* based on `RobBERT` : **{'mcc': 0.899370194601987, 'tp': 83, 'tn': 9998, 'fp': 2, 'fn': 17, 'eval_loss': 0.01631144658936272}**
 
 ```
 # I added the '*' marks around the incorrect verb after running the program for the false negatives.
@@ -171,7 +175,7 @@ Het is een hele boterham, *zendt* het toch maar direct door.
 1
 ```
 
-* based on `BERTje` : {'mcc': 0.7793952404806573, 'tp': 69, 'tn': 9991, 'fp': 9, 'fn': 31, 'eval_loss': 0.03574260821650488}
+* based on `BERTje` : **{'mcc': 0.7793952404806573, 'tp': 69, 'tn': 9991, 'fp': 9, 'fn': 31, 'eval_loss': 0.03574260821650488}**
 
 ```
 # I added the '*' marks around the incorrect verb after running the program for the false negatives.
@@ -356,6 +360,10 @@ Possible ideas:
 * Could we use better tokenizers ?
 * Could we use more diverse corpora (books, letters, news,  emails, ...)?
 * Could we get funding from one of the cloud players for GPU/TPU machine time?
+
+If you want to comment, feel free to add an issue, contact me on twitter at @peter_v
+or send me an email at peter AT vandenabeele DOT com. Also, I do have the models
+available (500 MB per model), if you would like to play with them.
 
 ## Conclusions
 
