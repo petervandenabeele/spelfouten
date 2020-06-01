@@ -21,6 +21,14 @@ experiments. Also the default hyperparameters where set-up easily with simpletra
 A lot of my "learning" history can be found in the history of this repo and this
 README.
 
+## Caveat
+
+This is early work in the field of #NLP and Deep Learning. This work will probably
+contain mistakes, omissions, incorrect data sets and incorrect interpretations. I
+would be very glad with any feedback that can improve the quality of this work, or
+at least fix errors in representation of the results and conclusions ... Feel free
+to file an Issue or contact me in private for questions or fixes.
+
 ## Experimental
 
 I used pre-trained models for RobBERT and BERTje, by using these models in simpletransformers:
